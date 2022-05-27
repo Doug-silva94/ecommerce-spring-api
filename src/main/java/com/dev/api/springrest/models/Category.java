@@ -19,13 +19,9 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cat_id")
     private Long id;
-    @Column(name = "cat_name", unique = true)
-    @NotNull(message = "Name may not be null")
-    @Size(min = 3, max = 20)
+    @Column(name = "cat_name", unique = true, nullable = false)
     private String name;
-    @Column(name = "cat_desc")
-    @NotBlank(message = "Description may not be blank")
-    @Size(min = 5, max = 20)
+    @Column(name = "cat_desc", nullable = false)
     private String description;
 
     //RELATIONSHIP PRODUCTS

@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.Set;
@@ -19,21 +17,15 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "prod_id")
     private Long id;
-    @Column(name = "prod_name", unique = true)
-    @NotNull(message = "Name may not be null")
-    @Size(min = 5, max = 20)
+    @Column(name = "prod_name", unique = true, nullable = false)
     private String name;
     @Column(name = "prod_unit_value", nullable = false)
     private Double unitaryValue;
-    @Column(name = "prod_description")
-    @NotBlank(message = "Description may not be blank")
-    @Size(min = 5, max = 30)
+    @Column(name = "prod_description", nullable = false)
     private String description;
     @Column(name = "prod_exp_date", nullable = false)
     private Date expirationDate;
-    @Column(name = "prod_quantity")
-    @NotNull(message = "Quantity may not be null")
-    @Size(min = 1)
+    @Column(name = "prod_quantity", nullable = false)
     private int quantity;
 
     //RELATIONSHIP CATEGORY

@@ -17,9 +17,7 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_id", unique = true)
     private Long id;
-    @Column(name = "employee_name")
-    @NotNull(message = "Name may not be null")
-    @Size(min = 10, max = 50)
+    @Column(name = "employee_name", nullable = false)
     private String name;
     @Column(name = "employee_cpf", unique = true)
     @NotBlank(message = "CPF may not be blank")
