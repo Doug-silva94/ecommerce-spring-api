@@ -1,11 +1,20 @@
 package com.dev.api.springrest.models;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.*;
 import java.sql.Date;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -27,10 +36,10 @@ public class SaleTable {
     @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
     private Set<RelProductSale> productSales;
 
-    //RELATIONSHIP SALE to CLIENTS
-//    @OneToMany(mappedBy = "saleTable", cascade = CascadeType.ALL)
-//    @JoinColumn(name = "client")
-//    private List<Client> clients;
+    // RELATIONSHIP SALE to CLIENTS
+    @OneToOne//(mappedBy = "saleTable", cascade = CascadeType.ALL)
+    //@JoinColumn(name = "client")
+    private Client client;
 
 
     public SaleTable() {
@@ -40,6 +49,5 @@ public class SaleTable {
         this.id = id;
         this.date = date;
         this.value = value;
-
     }
 }

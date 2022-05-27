@@ -1,14 +1,15 @@
 package com.dev.api.springrest.services;
 
-import com.dev.api.springrest.dtos.CategoryDTO;
-import com.dev.api.springrest.models.Category;
-import com.dev.api.springrest.repositories.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dev.api.springrest.dtos.CategoryDTO;
+import com.dev.api.springrest.models.Category;
+import com.dev.api.springrest.repositories.CategoryRepository;
 
 @Service
 public class CategoryService {
@@ -19,24 +20,27 @@ public class CategoryService {
 		Category category = dtoToCategory(categoryDTO);
 		categoryRepository.save(category);
 	}
-	public CategoryDTO categoryToDTO(Category category){
+
+	public CategoryDTO categoryToDTO(Category category) {
 		CategoryDTO categoryDTO = new CategoryDTO();
 		categoryDTO.setId(category.getId());
 		categoryDTO.setName(category.getName());
 		categoryDTO.setDescription(category.getDescription());
 		return categoryDTO;
 	}
-	public Category dtoToCategory(CategoryDTO categoryDTO){
+
+	public Category dtoToCategory(CategoryDTO categoryDTO) {
 		Category category = new Category();
 		category.setName(categoryDTO.getName());
 		category.setDescription(categoryDTO.getDescription());
 		return category;
 	}
-	public CategoryDTO findOneCategory(Long id){
+
+	public CategoryDTO findOneCategory(Long id) {
 		Optional<Category> category = categoryRepository.findById(id);
 		Category categoryOnData;
 		CategoryDTO categoryDTO = new CategoryDTO();
-		if (category.isPresent()){
+		if (category.isPresent()) {
 			categoryOnData = category.get();
 			categoryDTO = categoryToDTO(category.get());
 		}
@@ -57,20 +61,20 @@ public class CategoryService {
 			categoryRepository.save(categoryOnBank);
 		}
 	}
-	public void deleteCategory(long id){
+
+	public void deleteCategory(long id) {
 		categoryRepository.deleteById(id);
 	}
 
-	public List<CategoryDTO> listAll(){
-	List<Category> categories = categoryRepository.findAll();
-	List<CategoryDTO> categoryDTOS = new ArrayList<>();
+	public List<CategoryDTO> listAll() {
+		List<Category> categories = categoryRepository.findAll();
+		List<CategoryDTO> categoryDTOS = new ArrayList<>();
 
-		for (Category category : categories){
-		CategoryDTO categoryDTO = categoryToDTO(category);
-		categoryDTOS.add(categoryDTO);
+		for (Category category : categories) {
+			CategoryDTO categoryDTO = categoryToDTO(category);
+			categoryDTOS.add(categoryDTO);
+		}
+		return categoryDTOS;
 	}
-        return categoryDTOS;
-}
-
 
 }
