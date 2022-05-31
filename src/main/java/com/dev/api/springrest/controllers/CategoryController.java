@@ -1,6 +1,6 @@
 package com.dev.api.springrest.controllers;
 
-import com.dev.api.springrest.dtos.CategoryDTO;
+import com.dev.api.springrest.dtos.CategoryDto;
 import com.dev.api.springrest.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,23 +18,23 @@ public class CategoryController {
     public CategoryController(CategoryService categoryService) {this.categoryService = categoryService;}
 
     @GetMapping()
-    public ResponseEntity<List<CategoryDTO>> listAll() {
+    public ResponseEntity<List<CategoryDto>> listAll() {
         return ResponseEntity.ok(categoryService.listAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryDTO> findById(@PathVariable long id){
+    public ResponseEntity<CategoryDto> findById(@PathVariable long id){
         return ResponseEntity.ok(categoryService.findOneCategory(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody CategoryDTO categoryDTO){
+    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody CategoryDto categoryDTO){
         categoryService.updateCategory(id, categoryDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping()
-    public ResponseEntity<Void> createCategory(@RequestBody CategoryDTO categoryDTO){
+    public ResponseEntity<Void> createCategory(@RequestBody CategoryDto categoryDTO){
         categoryService.saveCategory(categoryDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

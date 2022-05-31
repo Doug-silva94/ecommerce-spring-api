@@ -1,6 +1,6 @@
 package com.dev.api.springrest.controllers;
 
-import com.dev.api.springrest.dtos.ClientDTO;
+import com.dev.api.springrest.dtos.ClientDto;
 import com.dev.api.springrest.exceptions.ClientException;
 import com.dev.api.springrest.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,23 +20,23 @@ public class ClientController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<ClientDTO>> listAll(){
+    public ResponseEntity<List<ClientDto>> listAll(){
         return ResponseEntity.ok(clientService.listAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClientDTO> findById(@PathVariable long id) throws ClientException {
+    public ResponseEntity<ClientDto> findById(@PathVariable long id) throws ClientException {
         return ResponseEntity.ok(clientService.findOneClient(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody ClientDTO clientDTO) throws ClientException {
+    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody ClientDto clientDTO) throws ClientException {
         clientService.updateClient(id, clientDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping()
-    public ResponseEntity<Void> createClient(@RequestBody ClientDTO clientDTO){
+    public ResponseEntity<Void> createClient(@RequestBody ClientDto clientDTO){
         clientService.saveClient(clientDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

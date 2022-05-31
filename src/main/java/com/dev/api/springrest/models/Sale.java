@@ -3,14 +3,7 @@ package com.dev.api.springrest.models;
 import java.sql.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -32,7 +25,7 @@ public class Sale {
     private double price;
 
     @OneToMany(mappedBy = "sale")
-    private Set<ProductionSale> productSales;
+    private Set<ProductSale> productSales;
 
     @OneToOne
     private Client client;
@@ -40,14 +33,11 @@ public class Sale {
     public Sale() {
     }
 
-<<<<<<< HEAD:src/main/java/com/dev/api/springrest/models/Sale.java
-    public Sale(long id, Date date, double value) {
-=======
-    public SaleTable(long id, Date date, double price) {
->>>>>>> 6e2ed1bf7eb133be02a242addd9a4243a1aaf825:src/main/java/com/dev/api/springrest/models/SaleTable.java
+    public Sale(long id, Date date, double price) {
         this.id = id;
         this.date = date;
         this.price = price;
 
     }
+
 }

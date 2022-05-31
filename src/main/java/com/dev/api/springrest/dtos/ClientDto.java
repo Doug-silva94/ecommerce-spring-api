@@ -7,7 +7,7 @@ import java.sql.Date;
 
 @Getter
 @Setter
-public class ClientDTO {
+public class ClientDto {
     private Long id;
     private String name;
     private String userName;
@@ -17,9 +17,9 @@ public class ClientDTO {
     private String address;
     private String telephone;
 
-    public ClientDTO() {}
+    public ClientDto() {}
 
-    public ClientDTO(Long id, String name, String userName, String email, String cpf, Date birthDate, String address, String telephone) {
+    public ClientDto(Long id, String name, String userName, String email, String cpf, Date birthDate, String address, String telephone) {
         this.id = id;
         this.name = name;
         this.userName = userName;

@@ -1,5 +1,6 @@
 package com.dev.api.springrest.dtos;
 
+import com.dev.api.springrest.models.Product;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,7 +8,7 @@ import java.sql.Date;
 
 @Getter
 @Setter
-public class ProductDTO {
+public class ProductDto {
     private Long id;
     private String name;
     private Double unitaryValue;
@@ -16,9 +17,9 @@ public class ProductDTO {
     private Date expirationDate;
     private int quantity;
 
-    public ProductDTO() {
+    public ProductDto() {
     }
-    public ProductDTO(Long id, String name, Double unitaryValue, String description, long catId, Date expirationDate, int quantity) {
+    public ProductDto(Long id, String name, Double unitaryValue, String description, long catId, Date expirationDate, int quantity) {
         this.id = id;
         this.name = name;
         this.unitaryValue = unitaryValue;
@@ -26,5 +27,8 @@ public class ProductDTO {
         this.catId = catId;
         this.expirationDate = expirationDate;
         this.quantity = quantity;
+    }
+
+    public ProductDto(Product product) {
     }
 }

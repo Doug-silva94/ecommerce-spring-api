@@ -1,6 +1,6 @@
 package com.dev.api.springrest.controllers;
 
-import com.dev.api.springrest.dtos.EmployeeDTO;
+import com.dev.api.springrest.dtos.EmployeeDto;
 import com.dev.api.springrest.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,23 +19,23 @@ public class EmployeeController {
     public EmployeeController(EmployeeService employeeService) {this.employeeService = employeeService;}
 
     @GetMapping()
-    public ResponseEntity<List<EmployeeDTO>> listAll() {
+    public ResponseEntity<List<EmployeeDto>> listAll() {
         return ResponseEntity.ok(employeeService.listAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EmployeeDTO> findById(@PathVariable long id){
+    public ResponseEntity<EmployeeDto> findById(@PathVariable long id){
         return ResponseEntity.ok(employeeService.findOneEmployee(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody EmployeeDTO employeeDTO){
+    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody EmployeeDto employeeDTO){
         employeeService.updateEmployee(id, employeeDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping()
-    public ResponseEntity<Void> createEmployee(@RequestBody EmployeeDTO employeeDTO){
+    public ResponseEntity<Void> createEmployee(@RequestBody EmployeeDto employeeDTO){
         employeeService.saveEmployee(employeeDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

@@ -1,16 +1,15 @@
 package com.dev.api.springrest.services;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.dev.api.springrest.dtos.ProductDTO;
+import com.dev.api.springrest.dtos.ProductDto;
 import com.dev.api.springrest.models.Product;
 import com.dev.api.springrest.repositories.CategoryRepository;
 import com.dev.api.springrest.repositories.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -20,14 +19,14 @@ public class ProductService {
 	@Autowired
 	CategoryRepository categoryRepository;
 
-	public void saveProduct(ProductDTO productDTO) throws Exception {
+	public void saveProduct(ProductDto productDTO) throws Exception {
 		Product product = dtoToProduct(productDTO);
 		product.setCategory(categoryRepository.findById(productDTO.getCatId()).orElseThrow());
 		productRepository.save(product);
 	}
 
-	public ProductDTO productToDTO(Product product) {
-		ProductDTO productDTO = new ProductDTO();
+	public ProductDto productToDTO(Product product){
+		ProductDto productDTO = new ProductDto();
 		productDTO.setId(product.getId());
 		productDTO.setName(product.getName());
 		productDTO.setUnitaryValue(product.getPrice());
@@ -39,7 +38,7 @@ public class ProductService {
 		return productDTO;
 	}
 
-	public Product dtoToProduct(ProductDTO productDTO) {
+	public Product dtoToProduct(ProductDto productDTO){
 		Product product = new Product();
 		product.setName(productDTO.getName());
 		product.setPrice(productDTO.getUnitaryValue());
@@ -49,32 +48,31 @@ public class ProductService {
 		return product;
 	}
 
-	public void deleteProduct(long id) {
-		productRepository.deleteById(id);
-	}
+	public void deleteProduct(long id){productRepository.deleteById(id);}
 
-	public List<ProductDTO> listAll() {
+	public List<ProductDto> listAll() {
 		List<Product> product = productRepository.findAll();
-		List<ProductDTO> listDTO = new ArrayList<>();
-		for (Product products : product) {
-			ProductDTO productDTO = productToDTO(products);
+		List<ProductDto> listDTO = new ArrayList<>();
+		for (Product products : product ){
+			ProductDto productDTO=  productToDTO(products);
 			listDTO.add(productDTO);
 		}
 		return listDTO;
 	}
 
-	public ProductDTO findOneProduct(Long id) {
+
+	public ProductDto findOneProduct(Long id){
 		Optional<Product> product = productRepository.findById(id);
 		Product productOnData;
-		ProductDTO productDTO = new ProductDTO();
-		if (product.isPresent()) {
+		ProductDto productDTO = new ProductDto();
+		if (product.isPresent()){
 			productOnData = product.get();
 			productToDTO(product.get());
 		}
 		return productDTO;
 	}
 
-	public void updateProduct(Long id, ProductDTO productDTO) {
+	public void updateProduct(Long id, ProductDto productDTO) {
 		Optional<Product> product = productRepository.findById(id);
 		Product productOnBank = new Product();
 		if (product.isPresent()) {
@@ -95,3 +93,6 @@ public class ProductService {
 		}
 	}
 }
+
+
+

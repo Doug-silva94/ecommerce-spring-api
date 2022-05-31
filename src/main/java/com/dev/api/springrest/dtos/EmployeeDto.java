@@ -5,13 +5,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EmployeeDTO {
+public class EmployeeDto {
     private Long id;
     private String name;
     private String cpf;
-    public EmployeeDTO() {
+    public EmployeeDto() {
     }
-    public EmployeeDTO(Long id, String name, String cpf) {
+    public EmployeeDto(Long id, String name, String cpf) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;

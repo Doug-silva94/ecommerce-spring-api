@@ -1,38 +1,30 @@
 package com.dev.api.springrest.services;
 
-import java.util.ArrayList;
+import com.dev.api.springrest.dtos.ClientDto;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dev.api.springrest.dtos.ClientDTO;
 import com.dev.api.springrest.exceptions.ClientException;
 import com.dev.api.springrest.exceptions.ClientNotFoundException;
 import com.dev.api.springrest.models.Client;
 import com.dev.api.springrest.repositories.ClientRepository;
-<<<<<<< HEAD
-=======
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+
 import java.util.stream.Collectors;
->>>>>>> 6e2ed1bf7eb133be02a242addd9a4243a1aaf825
 
 @Service
 public class ClientService {
     @Autowired
     ClientRepository clientRepository;
 
-    public void saveClient(ClientDTO clientDTO) {
+    public void saveClient(ClientDto clientDTO) {
         Client client = dtoToClient(clientDTO);
         clientRepository.save(client);
     }
 
-    public ClientDTO clientToDTO(Client client) {
-        ClientDTO clientDTO = new ClientDTO();
+    public ClientDto clientToDTO(Client client) {
+        ClientDto clientDTO = new ClientDto();
 
         clientDTO.setId(client.getId());
         clientDTO.setName(client.getName());
@@ -54,7 +46,7 @@ public class ClientService {
         return dtoInput != null ? (T) dtoInput : savedData;
     }
 
-    public Client dtoToClient(ClientDTO clientDTO) {
+    public Client dtoToClient(ClientDto clientDTO) {
         Client client = new Client();
 
         client.setName(clientDTO.getName());
@@ -68,12 +60,12 @@ public class ClientService {
         return client;
     }
 
-    public ClientDTO findOneClient(Long id) throws ClientException {
+    public ClientDto findOneClient(Long id) throws ClientException {
         var ex = new ClientException(new ClientNotFoundException());
         return clientToDTO(this.getClientOrElseThrow(id));
     }
 
-    public void updateClient(Long id, ClientDTO clientDTO) throws ClientException {
+    public void updateClient(Long id, ClientDto clientDTO) throws ClientException {
         Client clientOnBank = this.getClientOrElseThrow(id);
 
         clientOnBank.setEmail(getValue(clientOnBank.getEmail(), clientDTO.getEmail()));
@@ -87,7 +79,7 @@ public class ClientService {
         clientRepository.deleteById(this.getClientOrElseThrow(id).getId());
     }
 
-    public List<ClientDTO> listAll() {
+    public List<ClientDto> listAll() {
         return clientRepository.findAll()
                 .stream()
                 .map(this::clientToDTO)

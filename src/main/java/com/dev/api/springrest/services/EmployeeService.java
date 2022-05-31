@@ -1,28 +1,27 @@
 package com.dev.api.springrest.services;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
+import com.dev.api.springrest.dtos.EmployeeDto;
+import com.dev.api.springrest.models.Employee;
+import com.dev.api.springrest.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dev.api.springrest.dtos.EmployeeDTO;
-import com.dev.api.springrest.models.Employee;
-import com.dev.api.springrest.repositories.EmployeeRepository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    public void saveEmployee(EmployeeDTO employeeDTO) {
+    public void saveEmployee(EmployeeDto employeeDTO) {
         Employee employee = dtoToEmployee(employeeDTO);
         employeeRepository.save(employee);
     }
 
-    public EmployeeDTO employeeToDTO(Employee employee){
-        EmployeeDTO employeeDTO = new EmployeeDTO();
+    public EmployeeDto employeeToDTO(Employee employee){
+        EmployeeDto employeeDTO = new EmployeeDto();
 
         employeeDTO.setId(employee.getId());
         employeeDTO.setName(employee.getName());
@@ -30,7 +29,7 @@ public class EmployeeService {
         return employeeDTO;
     }
 
-    public Employee dtoToEmployee(EmployeeDTO employeeDTO){
+    public Employee dtoToEmployee(EmployeeDto employeeDTO){
         Employee employee = new Employee();
 
         employee.setName(employeeDTO.getName());
@@ -38,10 +37,10 @@ public class EmployeeService {
         return employee;
     }
 
-    public EmployeeDTO findOneEmployee(Long id){
+    public EmployeeDto findOneEmployee(Long id){
         Optional<Employee> employee = employeeRepository.findById(id);
         Employee employeeOnData;
-        EmployeeDTO employeeDTO = new EmployeeDTO();
+        EmployeeDto employeeDTO = new EmployeeDto();
         if (employee.isPresent()){
             employeeOnData = employee.get();
            employeeDTO = employeeToDTO(employee.get());
@@ -49,7 +48,7 @@ public class EmployeeService {
         return employeeDTO;
     }
 
-    public void updateEmployee(Long id, EmployeeDTO employeeDTO) {
+    public void updateEmployee(Long id, EmployeeDto employeeDTO) {
         Optional<Employee> employee = employeeRepository.findById(id);
         Employee employeeOnBank = new Employee();
         if (employee.isPresent()) {
@@ -68,11 +67,11 @@ public class EmployeeService {
         employeeRepository.deleteById(id);
     }
 
-    public List<EmployeeDTO> listAll(){
+    public List<EmployeeDto> listAll(){
     List<Employee> employee = employeeRepository.findAll();
-    List<EmployeeDTO> listEmployee = new ArrayList<>();
+    List<EmployeeDto> listEmployee = new ArrayList<>();
          for (Employee employees : employee){
-        EmployeeDTO employeeDTO = employeeToDTO(employees);
+        EmployeeDto employeeDTO = employeeToDTO(employees);
         listEmployee.add(employeeDTO);
     }
         return listEmployee;
