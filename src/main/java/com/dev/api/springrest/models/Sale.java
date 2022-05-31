@@ -22,32 +22,32 @@ import lombok.Setter;
 public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sale_id")
+    @Column(name = "id")
     private long id;
-    @Column(name = "sale_date")
+    @Column(name = "date")
     private Date date;
-    @Column(name = "sale_quantity")
+    @Column(name = "quantity")
     private int quantity;
-    @Column(name = "sale_value")
-    private double value;
+    @Column(name = "price")
+    private double price;
 
-    //RELATIONSHIP SALE to PRODUCT
-    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
-    private Set<RelProductSale> productSales;
+    @OneToMany(mappedBy = "sale")
+    private Set<ProductionSale> productSales;
 
-    //RELATIONSHIP SALE to CLIENTS
-//    @OneToMany(mappedBy = "saleTable", cascade = CascadeType.ALL)
-//    @JoinColumn(name = "client")
-//    private List<Client> clients;
-
+    @OneToOne
+    private Client client;
 
     public Sale() {
     }
 
+<<<<<<< HEAD:src/main/java/com/dev/api/springrest/models/Sale.java
     public Sale(long id, Date date, double value) {
+=======
+    public SaleTable(long id, Date date, double price) {
+>>>>>>> 6e2ed1bf7eb133be02a242addd9a4243a1aaf825:src/main/java/com/dev/api/springrest/models/SaleTable.java
         this.id = id;
         this.date = date;
-        this.value = value;
+        this.price = price;
 
     }
 }

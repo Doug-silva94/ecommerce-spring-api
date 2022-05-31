@@ -30,7 +30,7 @@ public class ProductService {
 		ProductDTO productDTO = new ProductDTO();
 		productDTO.setId(product.getId());
 		productDTO.setName(product.getName());
-		productDTO.setUnitaryValue(product.getUnitaryValue());
+		productDTO.setUnitaryValue(product.getPrice());
 		productDTO.setDescription(product.getDescription());
 		productDTO.setExpirationDate(product.getExpirationDate());
 		productDTO.setQuantity(product.getQuantity());
@@ -42,7 +42,7 @@ public class ProductService {
 	public Product dtoToProduct(ProductDTO productDTO){
 		Product product = new Product();
 		product.setName(productDTO.getName());
-		product.setUnitaryValue(productDTO.getUnitaryValue());
+		product.setPrice(productDTO.getUnitaryValue());
 		product.setDescription(productDTO.getDescription());
 		product.setExpirationDate(productDTO.getExpirationDate());
 		product.setQuantity(productDTO.getQuantity());
@@ -79,7 +79,7 @@ public class ProductService {
 		if (product.isPresent()) {
 			productOnBank = product.get();
 			if (productDTO.getName() != null) {
-				productOnBank.setUnitaryValue(productDTO.getUnitaryValue());
+				productOnBank.setPrice(productDTO.getUnitaryValue());
 			}
 			if (productDTO.getDescription() != null) {
 				productOnBank.setDescription(productDTO.getDescription());

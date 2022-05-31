@@ -13,6 +13,12 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+<<<<<<< HEAD
+=======
+import javax.persistence.*;
+import java.util.Set;
+
+>>>>>>> 6e2ed1bf7eb133be02a242addd9a4243a1aaf825
 @Entity
 @Getter
 @Setter
@@ -20,17 +26,16 @@ import lombok.Setter;
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cat_id")
+    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    @Column(name = "cat_name", unique = true, nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "cat_desc", nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
 
-    //RELATIONSHIP PRODUCTS
     @OneToMany(mappedBy = "category")
-    private List<Product> products;
+    private Set<Product> products;
 
     public Category() {
     }

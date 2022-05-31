@@ -15,32 +15,37 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "rel_prod_sale")
-public class RelProductSale {
+@Table(name = "product_sale")
+public class ProductionSale {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "rel_id")
+    @Column(name = "id")
     private long idRel;
-    @Column(name = "rel_prod_id")
+    @Column(name = "prod_id")
     private long idProd;
-    @Column(name = "rel_sale_id")
+    @Column(name = "sale_id")
     private long idSale;
 
-    public RelProductSale() {
+    public ProductionSale() {
     }
 
-    public RelProductSale(long idRel, long idProd, long idSale) {
+    public ProductionSale(long idRel, long idProd, long idSale) {
         this.idRel = idRel;
         this.idProd = idProd;
         this.idSale = idSale;
     }
 
     @ManyToOne
-    @JoinColumn(name = "prod_id", referencedColumnName = "prod_id")
+    @JoinColumn(name = "prod_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Product product;
 
     @ManyToOne
+<<<<<<< HEAD:src/main/java/com/dev/api/springrest/models/RelProductSale.java
     @JoinColumn(name = "sale_id")
     private Sale sale;
+=======
+    @JoinColumn(name = "sale_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private SaleTable sale;
+>>>>>>> 6e2ed1bf7eb133be02a242addd9a4243a1aaf825:src/main/java/com/dev/api/springrest/models/ProductionSale.java
 }

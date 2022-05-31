@@ -9,8 +9,17 @@ import org.springframework.stereotype.Service;
 
 import com.dev.api.springrest.dtos.ClientDTO;
 import com.dev.api.springrest.exceptions.ClientException;
+import com.dev.api.springrest.exceptions.ClientNotFoundException;
 import com.dev.api.springrest.models.Client;
 import com.dev.api.springrest.repositories.ClientRepository;
+<<<<<<< HEAD
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+>>>>>>> 6e2ed1bf7eb133be02a242addd9a4243a1aaf825
 
 @Service
 public class ClientService {
@@ -21,6 +30,7 @@ public class ClientService {
         Client client = dtoToClient(clientDTO);
         clientRepository.save(client);
     }
+
     public ClientDTO clientToDTO(Client client) {
         ClientDTO clientDTO = new ClientDTO();
 
@@ -34,6 +44,14 @@ public class ClientService {
         clientDTO.setTelephone(client.getTelephone());
 
         return clientDTO;
+    }
+
+    public Client getClientOrElseThrow(Long id) throws ClientNotFoundException {
+        return this.clientRepository.findById(id).orElseThrow(ClientNotFoundException::new);
+    }
+
+    private <T> T getValue(T savedData, String dtoInput) {
+        return dtoInput != null ? (T) dtoInput : savedData;
     }
 
     public Client dtoToClient(ClientDTO clientDTO) {
@@ -51,62 +69,29 @@ public class ClientService {
     }
 
     public ClientDTO findOneClient(Long id) throws ClientException {
-        Optional<Client> client = clientRepository.findById(id);
-        Client clientOnData;
-        ClientDTO clientDTO = new ClientDTO();
-        if (client.isPresent()) {
-            clientOnData = client.get();
-            clientDTO = clientToDTO(client.get());
-            return clientDTO;
-        }
-        throw new ClientException("Id or option invalid.");
+        var ex = new ClientException(new ClientNotFoundException());
+        return clientToDTO(this.getClientOrElseThrow(id));
     }
 
     public void updateClient(Long id, ClientDTO clientDTO) throws ClientException {
-        Optional<Client> client = clientRepository.findById(id);
-        Client clientOnBank = new Client();
-        if (client.isPresent()) {
-            clientOnBank = client.get();
-            if (clientDTO.getUserName() != null) {
-                clientOnBank.setUserName(clientDTO.getUserName());
-            }
-            if (clientDTO.getEmail() != null) {
-                clientOnBank.setEmail(clientDTO.getEmail());
-            }
-            if (clientDTO.getCpf() != null) {
-                clientOnBank.setCpf(clientDTO.getCpf());
-            }
-            if (clientDTO.getBirthDate() != null) {
-                clientOnBank.setBirthDate(clientDTO.getBirthDate());
-            }
-            if (clientDTO.getAddress() != null) {
-                clientOnBank.setAddress(clientDTO.getAddress());
-            }
-            if (clientDTO.getTelephone() != null) {
-                clientOnBank.setTelephone(clientDTO.getTelephone());
-            }
-            clientRepository.save(clientOnBank);
-        }
-        throw new ClientException("Update not conclude. Specification invalid or not exist.");
+        Client clientOnBank = this.getClientOrElseThrow(id);
 
+        clientOnBank.setEmail(getValue(clientOnBank.getEmail(), clientDTO.getEmail()));
+        clientOnBank.setAddress(getValue(clientOnBank.getAddress(), clientDTO.getAddress()));
+        clientOnBank.setTelephone(getValue(clientOnBank.getTelephone(), clientDTO.getTelephone()));
+        clientRepository.save(clientOnBank);
     }
 
+
     public void deleteClient(long id) throws ClientException {
-        Optional<Client> client = clientRepository.findById(id);
-        if (id <= 0 || client.isEmpty()) {
-            throw new ClientException("Request invalid. Number or client not exists.");
-        }
-        clientRepository.deleteById(id);
+        clientRepository.deleteById(this.getClientOrElseThrow(id).getId());
     }
 
     public List<ClientDTO> listAll() {
-        List<Client> client = clientRepository.findAll();
-        List<ClientDTO> listClient = new ArrayList<>();
-        for (Client clients : client) {
-            ClientDTO clientDTO = clientToDTO(clients);
-            listClient.add(clientDTO);
-        }
-        return listClient;
+        return clientRepository.findAll()
+                .stream()
+                .map(this::clientToDTO)
+                .collect(Collectors.toList());
     }
 
 }
