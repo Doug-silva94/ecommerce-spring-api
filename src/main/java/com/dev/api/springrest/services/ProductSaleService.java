@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.dev.api.springrest.dtos.ProductSaleDto;
+import com.dev.api.springrest.exceptions.ProductSaleException;
 import com.dev.api.springrest.models.ProductSale;
 import com.dev.api.springrest.repositories.ProductSaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,23 +33,24 @@ public class ProductSaleService {
 		return productSale;
 	}
 
-	public void saveSale(ProductSaleDto productSaleDto) /* throws Exception */ {
+	public void saveSale(ProductSaleDto productSaleDto) {
 		ProductSale productSale = dtoToProductSale(productSaleDto);
 		// productSale.setCategory(categoryRepository.findById(productDTO.getCatId()).orElseThrow());
 		productSaleRepository.save(productSale);
 	}
 
-	public ProductSaleDto findOneProductSale(Long id) {
+	public ProductSaleDto findOneProductSale(Long id) throws ProductSaleException {
 		Optional<ProductSale> productSale = productSaleRepository.findById(id);
-		ProductSale productSaleOnData;
-		ProductSaleDto productSaleDto = new ProductSaleDto();
+		ProductSale dataProductSale = new ProductSale();
+		ProductSaleDto productSaleDTO = new ProductSaleDto();
+		
 		if (productSale.isPresent()) {
-			productSaleOnData = productSale.get();
-			productSaleDto = productSaleToDto(productSale.get());
+			dataProductSale = productSale.get();
+			productSaleDTO = productSaleToDto(productSale.get());
+			return productSaleDTO;
 		}
-		return productSaleDto;
+		throw new ProductSaleException("Product Sale " + dataProductSale.getIdProd() + " not found. Please, try again.");
 	}
-
 
 	public void deleteSale(long id) {
 		productSaleRepository.deleteById(id);

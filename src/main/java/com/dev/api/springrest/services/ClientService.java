@@ -34,7 +34,6 @@ public class ClientService {
         clientDTO.setBirthDate(client.getBirthDate());
         clientDTO.setAddress(client.getAddress());
         clientDTO.setTelephone(client.getTelephone());
-
         return clientDTO;
     }
 

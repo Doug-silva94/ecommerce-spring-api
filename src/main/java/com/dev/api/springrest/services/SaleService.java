@@ -1,6 +1,7 @@
 package com.dev.api.springrest.services;
 
-import com.dev.api.springrest.dtos.SaleDto;
+import com.dev.api.springrest.dtos.SaleDTO;
+import com.dev.api.springrest.exceptions.SaleException;
 import com.dev.api.springrest.models.Client;
 import com.dev.api.springrest.models.Product;
 import com.dev.api.springrest.models.Sale;
@@ -18,21 +19,21 @@ public class SaleService {
     @Autowired
 
 
-    public void buyProduct(SaleDto saleDto) {
-        Sale sale = dtoToSale(saleDto);
+    public void buyProduct(SaleDTO saleDTO) {
+        Sale sale = dtoToSale(saleDTO);
         saleRepository.save(sale);
     }
 
-    public SaleDto saleToDTO(Sale sale, Product product, Client client) {
-        SaleDto saleDto = new SaleDto();
+    public SaleDTO saleToDTO(Sale sale, Product product, Client client) {
+        SaleDTO saleDTO = new SaleDTO();
 
-        saleDto.setId(sale.getId());
-        saleDto.setDate(sale.getDate());
-        saleDto.setPrice(sale.getPrice());
-        saleDto.setQuantity(sale.getQuantity());
-        saleDto.setIdClient(client.getId());
-        saleDto.setIdProd(product.getId());
-        return saleDto;
+        saleDTO.setId(sale.getId());
+        saleDTO.setDate(sale.getDate());
+        saleDTO.setPrice(sale.getPrice());
+        saleDTO.setQuantity(sale.getQuantity());
+        saleDTO.setIdClient(client.getId());
+        saleDTO.setIdProd(product.getId());
+        return saleDTO;
     }
 
 //              Verificar Exception
@@ -44,12 +45,12 @@ public class SaleService {
         return dtoInput != null ? (T) dtoInput : savedData;
     }
 
-    public Sale dtoToSale(SaleDto saleDto) {
+    public Sale dtoToSale(SaleDTO saleDTO) {
         Sale sale = new Sale();
-        sale.setId(saleDto.getId());
-        sale.setDate(saleDto.getDate());
-        sale.setPrice(saleDto.getPrice());
-        sale.setQuantity(saleDto.getQuantity());
+        sale.setId(saleDTO.getId());
+        sale.setDate(saleDTO.getDate());
+        sale.setPrice(saleDTO.getPrice());
+        sale.setQuantity(saleDTO.getQuantity());
         return sale;
     }
 
@@ -58,28 +59,36 @@ public class SaleService {
         return saleRepository.findById(id);
     }
 
-    public void updateSale(Long id, SaleDto saleDto)  {
-        Sale sale = saleRepository.findById(id).orElseThrow();
-        if (saleDto.getPrice() != null) {
-           sale.setPrice(saleDto.getPrice());
+    public String updateSale(Long id, SaleDTO saleDTO) throws SaleException {
+        Optional <Sale> sale = saleRepository.findById(id);
+        Sale dataSale = new Sale();
+        
+        if (sale.isPresent()) {
+        	dataSale = sale.get();   
+        	if (saleDTO.getDate() != null) {
+        	dataSale.setDate(saleDTO.getDate());
+        	}
+        	if (saleDTO.getQuantity() != null) {
+        	saleDTO.setQuantity(saleDTO.getQuantity());
+        	}
+        	if (saleDTO.getPrice() != null) {
+        	saleDTO.setPrice(saleDTO.getPrice());
         }
-        if (saleDto.getQuantity() != null) {
-           sale.setQuantity(saleDto.getQuantity());
-        }
-        saleRepository.save(sale);
+        saleRepository.save(saleDTO);
+        return "Sale " + dataSale.getId() + " successfully updated!";
     }
-
+    throw new SaleException("Sale " + dataSale.getId() + " was not updated. Please, try again.");
+    }
 
     public void deleteSale(long id){
         saleRepository.deleteById(id);
     }
 
-//    public List<SaleDto> listAll() {
+//    public List<SaleDTO> listAll() {
 //        return saleRepository.findAll()
 //                .stream()
 //                .map(this::saleToDTO)
 //                .collect(Collectors.toList());
 //    }
-
-
+    
 }

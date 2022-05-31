@@ -13,7 +13,8 @@ import lombok.Setter;
 @Setter
 @Table(name = "sale_table")
 public class Sale {
-    @Id
+   
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;

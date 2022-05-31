@@ -1,6 +1,7 @@
 package com.dev.api.springrest.services;
 
 import com.dev.api.springrest.dtos.ProductDto;
+import com.dev.api.springrest.exceptions.ProductException;
 import com.dev.api.springrest.models.Product;
 import com.dev.api.springrest.repositories.CategoryRepository;
 import com.dev.api.springrest.repositories.ProductRepository;
@@ -13,17 +14,12 @@ import java.util.Optional;
 
 @Service
 public class ProductService {
+	
 	@Autowired
 	private ProductRepository productRepository;
 
 	@Autowired
 	CategoryRepository categoryRepository;
-
-	public void saveProduct(ProductDto productDTO) throws Exception {
-		Product product = dtoToProduct(productDTO);
-		product.setCategory(categoryRepository.findById(productDTO.getCatId()).orElseThrow());
-		productRepository.save(product);
-	}
 
 	public ProductDto productToDTO(Product product){
 		ProductDto productDTO = new ProductDto();
@@ -47,6 +43,12 @@ public class ProductService {
 		product.setQuantity(productDTO.getQuantity());
 		return product;
 	}
+	
+	public void saveProduct(ProductDto productDTO) throws Exception {
+		Product product = dtoToProduct(productDTO);
+		product.setCategory(categoryRepository.findById(productDTO.getCatId()).orElseThrow());
+		productRepository.save(product);
+	}
 
 	public void deleteProduct(long id){productRepository.deleteById(id);}
 
@@ -60,23 +62,27 @@ public class ProductService {
 		return listDTO;
 	}
 
-
-	public ProductDto findOneProduct(Long id){
+	public ProductDto findOneProduct(Long id) throws ProductException {
 		Optional<Product> product = productRepository.findById(id);
-		Product productOnData;
+		Product dataProduct = new Product();
 		ProductDto productDTO = new ProductDto();
+		
 		if (product.isPresent()){
-			productOnData = product.get();
-			productToDTO(product.get());
+			dataProduct = product.get();
+			productDTO = productToDTO(product.get());
+			return productDTO;
 		}
-		return productDTO;
-	}
+		throw new ProductException("Product " + productDTO.getId() + " not found. Please, try again.");
 
-	public void updateProduct(Long id, ProductDto productDTO) {
+	public String updateProduct(Long id, ProductDto productDTO) throws ProductException {
 		Optional<Product> product = productRepository.findById(id);
 		Product productOnBank = new Product();
+		
 		if (product.isPresent()) {
 			productOnBank = product.get();
+			if (productDTO.getId() != null) {
+				productOnBank.setId(productDTO.getId());
+			}
 			if (productDTO.getName() != null) {
 				productOnBank.setPrice(productDTO.getUnitaryValue());
 			}
@@ -90,9 +96,9 @@ public class ProductService {
 				productOnBank.setQuantity(productDTO.getQuantity());
 			}
 			productRepository.save(productOnBank);
+			return "Product " + productOnBank.getId() + " successfully updated!";
 		}
+		throw new ProductException("Product " + productOnBank.getId() + " was not updated. Please, try again.");
 	}
 }
-
-
 

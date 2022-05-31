@@ -18,7 +18,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Employee {
-    @Id
+    
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
@@ -38,6 +39,5 @@ public class Employee {
         this.name = name;
         this.cpf = cpf;
     }
-
-
+    
 }
