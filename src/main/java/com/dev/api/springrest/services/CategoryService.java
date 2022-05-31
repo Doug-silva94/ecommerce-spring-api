@@ -6,9 +6,9 @@ import com.dev.api.springrest.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -44,33 +44,26 @@ public class CategoryService {
 	}
 
 	public void updateCategory(Long id, CategoryDTO categoryDTO) {
-		Optional<Category> category = categoryRepository.findById(id);
-		Category categoryOnBank = new Category();
-		if (category.isPresent()) {
-			categoryOnBank = category.get();
-			if (categoryDTO.getName() != null) {
-				categoryOnBank.setName(categoryDTO.getName());
-			}
-			if (categoryDTO.getDescription() != null) {
-				categoryOnBank.setDescription(categoryDTO.getDescription());
-			}
-			categoryRepository.save(categoryOnBank);
+		Category category = categoryRepository.findById(id).orElseThrow();
+		if (categoryDTO.getName() != null) {
+			category.setName(categoryDTO.getName());
 		}
+		if (categoryDTO.getDescription() != null) {
+			category.setDescription(categoryDTO.getDescription());
+		}
+		categoryRepository.save(category);
 	}
+
 	public void deleteCategory(long id){
 		categoryRepository.deleteById(id);
 	}
 
-	public List<CategoryDTO> listAll(){
-	List<Category> categories = categoryRepository.findAll();
-	List<CategoryDTO> categoryDTOS = new ArrayList<>();
-
-		for (Category category : categories){
-		CategoryDTO categoryDTO = categoryToDTO(category);
-		categoryDTOS.add(categoryDTO);
+	public List<CategoryDTO> listAll() {
+		return categoryRepository.findAll()
+				.stream()
+				.map(this::categoryToDTO)
+				.collect(Collectors.toList());
 	}
-        return categoryDTOS;
-}
 
 
 }

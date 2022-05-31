@@ -14,32 +14,28 @@ import java.util.Set;
 public class SaleTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sale_id")
+    @Column(name = "id")
     private long id;
-    @Column(name = "sale_date")
+    @Column(name = "date")
     private Date date;
-    @Column(name = "sale_quantity")
+    @Column(name = "quantity")
     private int quantity;
-    @Column(name = "sale_value")
-    private double value;
+    @Column(name = "price")
+    private double price;
 
-    //RELATIONSHIP SALE to PRODUCT
-    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
-    private Set<RelProductSale> productSales;
+    @OneToMany(mappedBy = "sale")
+    private Set<ProductionSale> productSales;
 
-    //RELATIONSHIP SALE to CLIENTS
-//    @OneToMany(mappedBy = "saleTable", cascade = CascadeType.ALL)
-//    @JoinColumn(name = "client")
-//    private List<Client> clients;
-
+    @OneToOne
+    private Client client;
 
     public SaleTable() {
     }
 
-    public SaleTable(long id, Date date, double value) {
+    public SaleTable(long id, Date date, double price) {
         this.id = id;
         this.date = date;
-        this.value = value;
+        this.price = price;
 
     }
 }

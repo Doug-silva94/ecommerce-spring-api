@@ -4,10 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.util.Set;
 
 
 @Entity
@@ -18,37 +17,27 @@ public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cli_id")
+    @Column(name = "id")
     private Long id;
-    @Column(name = "cli_name")
-    @NotNull(message = "Name may not be null")
-    @Size(min = 10, max = 50)
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "cli_user", unique = true)
-    @NotNull(message = "UserName may not be null")
+    @Column(name = "username", nullable = false)
     @Size(min = 5, max = 15)
     private String userName;
-    @Column(name = "cli_email")
-    @NotNull(message = "Email may not be null")
-    @Size(min = 10, max = 50)
+    @Column(name = "email", nullable = false)
     private String email;
-    @Column(name = "cli_cpf", unique = true)
-    @NotBlank(message = "CPF may not be blank")
+    @Column(name = "cpf", unique = true)
     @Size(max = 14)
     private String cpf;
-    @Column(name = "cli_birth")
+    @Column(name = "birth")
     private Date birthDate;
-    @Column(name = "cli_address")
-    @NotNull(message = "Address may not be null")
-    @Size(min = 15, max = 50)
+    @Column(name = "address", nullable = false)
     private String address;
-    @Column(name = "cli_tel")
-    @NotBlank(message = "Telephone may not be blank")
-    @Size(max = 15)
+    @Column(name = "tel", nullable = false)
     private String telephone;
 
-//    @ManyToOne
-//    private SaleTable saleTable;
+    @OneToOne(mappedBy = "client")
+    private SaleTable saleTable;
 
     public Client() {
     }

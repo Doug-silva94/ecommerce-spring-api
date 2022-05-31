@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -16,17 +13,16 @@ import java.util.List;
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cat_id")
+    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    @Column(name = "cat_name", unique = true, nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "cat_desc", nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
 
-    //RELATIONSHIP PRODUCTS
     @OneToMany(mappedBy = "category")
-    private List<Product> products;
+    private Set<Product> products;
 
     public Category() {
     }

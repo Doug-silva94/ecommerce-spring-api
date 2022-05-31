@@ -15,16 +15,13 @@ import java.util.List;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "employee_id", unique = true)
+    @Column(name = "id")
     private Long id;
-    @Column(name = "employee_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "employee_cpf", unique = true)
-    @NotBlank(message = "CPF may not be blank")
-    @Size(max = 14)
+    @Column(name = "cpf", unique = true)
     private String cpf;
 
-    //RELATIONSHIP PRODUCTS
     @OneToMany(mappedBy = "employee")
     private List<Product> product;
 
