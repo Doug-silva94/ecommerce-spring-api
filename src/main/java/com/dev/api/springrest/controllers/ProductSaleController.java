@@ -34,13 +34,13 @@ public class ProductSaleController {
 	    }
 
 	    @GetMapping("/{id}")
-	    public ResponseEntity<ProductSaleDTO> findById(@PathVariable long id){
-	        return ResponseEntity.ok(productSaleService.findOneProduct(id));
+	    public ResponseEntity<ProductSaleDto> findById(@PathVariable long id){
+	        return ResponseEntity.ok(productSaleService.findOneProductSale(id));
 	    }
 
 	    @PutMapping("/{id}")
-	    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody ProductDTO productSaleDto){
-	        productSaleService.updateProduct(id, productSaleDto);
+	    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody ProductSaleDto productSaleDto){
+	        productSaleService.updateProductSale(id, productSaleDto);
 	        return new ResponseEntity<>(HttpStatus.CREATED);
 	    }
 
