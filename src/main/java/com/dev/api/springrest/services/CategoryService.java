@@ -1,5 +1,18 @@
 package com.dev.api.springrest.services;
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+import java.util.ArrayList;
+=======
+import com.dev.api.springrest.dtos.CategoryDTO;
+import com.dev.api.springrest.models.Category;
+import com.dev.api.springrest.repositories.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+>>>>>>> 6e2ed1bf7eb133be02a242addd9a4243a1aaf825
+>>>>>>> 5996e24ba4d4bd697473c6974f0cf2777712c1d4
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -7,7 +20,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import com.dev.api.springrest.dtos.CategoryDto;
+=======
+import com.dev.api.springrest.dtos.CategoryDTO;
+>>>>>>> 5996e24ba4d4bd697473c6974f0cf2777712c1d4
 import com.dev.api.springrest.models.Category;
 import com.dev.api.springrest.repositories.CategoryRepository;
 

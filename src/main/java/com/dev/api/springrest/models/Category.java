@@ -1,11 +1,24 @@
 package com.dev.api.springrest.models;
 
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import lombok.Getter;
 import lombok.Setter;
 
+<<<<<<< HEAD
+=======
 import javax.persistence.*;
 import java.util.Set;
 
+>>>>>>> 6e2ed1bf7eb133be02a242addd9a4243a1aaf825
 @Entity
 @Getter
 @Setter
@@ -32,4 +45,37 @@ public class Category {
         this.name = name;
         this.description = description;
     }
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
 }
