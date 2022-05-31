@@ -1,14 +1,15 @@
 package com.dev.api.springrest.services;
 
-import com.dev.api.springrest.dtos.CategoryDTO;
-import com.dev.api.springrest.models.Category;
-import com.dev.api.springrest.repositories.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dev.api.springrest.dtos.CategoryDTO;
+import com.dev.api.springrest.models.Category;
+import com.dev.api.springrest.repositories.CategoryRepository;
 
 @Service
 public class CategoryService {

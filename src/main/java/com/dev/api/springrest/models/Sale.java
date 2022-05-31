@@ -1,17 +1,25 @@
 package com.dev.api.springrest.models;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.*;
 import java.sql.Date;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "sale_table")
-public class SaleTable {
+public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sale_id")
@@ -33,10 +41,10 @@ public class SaleTable {
 //    private List<Client> clients;
 
 
-    public SaleTable() {
+    public Sale() {
     }
 
-    public SaleTable(long id, Date date, double value) {
+    public Sale(long id, Date date, double value) {
         this.id = id;
         this.date = date;
         this.value = value;

@@ -1,15 +1,16 @@
 package com.dev.api.springrest.services;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.dev.api.springrest.dtos.ProductDTO;
 import com.dev.api.springrest.models.Product;
 import com.dev.api.springrest.repositories.CategoryRepository;
 import com.dev.api.springrest.repositories.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductService {
