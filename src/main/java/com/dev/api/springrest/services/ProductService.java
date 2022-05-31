@@ -25,7 +25,7 @@ public class ProductService {
 		productRepository.save(product);
 	}
 
-	public ProductDTO productToDTO(Product product){
+	public ProductDTO productToDTO(Product product) {
 		ProductDTO productDTO = new ProductDTO();
 		productDTO.setId(product.getId());
 		productDTO.setName(product.getName());
@@ -38,7 +38,7 @@ public class ProductService {
 		return productDTO;
 	}
 
-	public Product dtoToProduct(ProductDTO productDTO){
+	public Product dtoToProduct(ProductDTO productDTO) {
 		Product product = new Product();
 		product.setName(productDTO.getName());
 		product.setPrice(productDTO.getUnitaryValue());
@@ -48,24 +48,25 @@ public class ProductService {
 		return product;
 	}
 
-	public void deleteProduct(long id){productRepository.deleteById(id);}
+	public void deleteProduct(long id) {
+		productRepository.deleteById(id);
+	}
 
 	public List<ProductDTO> listAll() {
 		List<Product> product = productRepository.findAll();
 		List<ProductDTO> listDTO = new ArrayList<>();
-		for (Product products : product ){
-			ProductDTO productDTO=  productToDTO(products);
+		for (Product products : product) {
+			ProductDTO productDTO = productToDTO(products);
 			listDTO.add(productDTO);
 		}
 		return listDTO;
 	}
 
-
-	public ProductDTO findOneProduct(Long id){
+	public ProductDTO findOneProduct(Long id) {
 		Optional<Product> product = productRepository.findById(id);
 		Product productOnData;
 		ProductDTO productDTO = new ProductDTO();
-		if (product.isPresent()){
+		if (product.isPresent()) {
 			productOnData = product.get();
 			productToDTO(product.get());
 		}
@@ -93,6 +94,3 @@ public class ProductService {
 		}
 	}
 }
-
-
-

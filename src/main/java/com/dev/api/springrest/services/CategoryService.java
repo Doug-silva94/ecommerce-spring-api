@@ -1,55 +1,57 @@
 package com.dev.api.springrest.services;
 
-import com.dev.api.springrest.dtos.CategoryDTO;
-import com.dev.api.springrest.models.Category;
-import com.dev.api.springrest.repositories.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dev.api.springrest.dtos.CategoryDto;
+import com.dev.api.springrest.models.Category;
+import com.dev.api.springrest.repositories.CategoryRepository;
 
 @Service
 public class CategoryService {
 	@Autowired
 	CategoryRepository categoryRepository;
 
-	public void saveCategory(CategoryDTO categoryDTO) {
-		Category category = dtoToCategory(categoryDTO);
+	public void saveCategory(CategoryDto categoryDto) {
+		Category category = dtoToCategory(categoryDto);
 		categoryRepository.save(category);
 	}
-	public CategoryDTO categoryToDTO(Category category){
-		CategoryDTO categoryDTO = new CategoryDTO();
-		categoryDTO.setId(category.getId());
-		categoryDTO.setName(category.getName());
-		categoryDTO.setDescription(category.getDescription());
-		return categoryDTO;
+	public CategoryDto categoryToDto(Category category){
+		CategoryDto categoryDto = new CategoryDto();
+		categoryDto.setId(category.getId());
+		categoryDto.setName(category.getName());
+		categoryDto.setDescription(category.getDescription());
+		return categoryDto;
 	}
-	public Category dtoToCategory(CategoryDTO categoryDTO){
+	public Category dtoToCategory(CategoryDto categoryDto){
 		Category category = new Category();
-		category.setName(categoryDTO.getName());
-		category.setDescription(categoryDTO.getDescription());
+		category.setName(categoryDto.getName());
+		category.setDescription(categoryDto.getDescription());
 		return category;
 	}
-	public CategoryDTO findOneCategory(Long id){
+	
+	public CategoryDto findOneCategory(Long id){
 		Optional<Category> category = categoryRepository.findById(id);
 		Category categoryOnData;
-		CategoryDTO categoryDTO = new CategoryDTO();
+		CategoryDto categoryDTO = new CategoryDto();
 		if (category.isPresent()){
 			categoryOnData = category.get();
-			categoryDTO = categoryToDTO(category.get());
+			categoryDTO = categoryToDto(category.get());
 		}
 		return categoryDTO;
 	}
 
-	public void updateCategory(Long id, CategoryDTO categoryDTO) {
+	public void updateCategory(Long id, CategoryDto categoryDto) {
 		Category category = categoryRepository.findById(id).orElseThrow();
-		if (categoryDTO.getName() != null) {
-			category.setName(categoryDTO.getName());
+		if (categoryDto.getName() != null) {
+			category.setName(categoryDto.getName());
 		}
-		if (categoryDTO.getDescription() != null) {
-			category.setDescription(categoryDTO.getDescription());
+		if (categoryDto.getDescription() != null) {
+			category.setDescription(categoryDto.getDescription());
 		}
 		categoryRepository.save(category);
 	}
@@ -58,10 +60,10 @@ public class CategoryService {
 		categoryRepository.deleteById(id);
 	}
 
-	public List<CategoryDTO> listAll() {
+	public List<CategoryDto> listAll() {
 		return categoryRepository.findAll()
 				.stream()
-				.map(this::categoryToDTO)
+				.map(this::categoryToDto)
 				.collect(Collectors.toList());
 	}
 
