@@ -1,6 +1,7 @@
 package com.dev.api.springrest.controllers;
 
 import com.dev.api.springrest.dtos.ProductDto;
+import com.dev.api.springrest.exceptions.ProductException;
 import com.dev.api.springrest.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,12 +24,12 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> findById(@PathVariable long id){
+    public ResponseEntity<ProductDto> findById(@PathVariable long id) throws ProductException {
         return ResponseEntity.ok(productService.findOneProduct(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody ProductDto productDTO){
+    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody ProductDto productDTO) throws ProductException {
         productService.updateProduct(id, productDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -45,13 +46,5 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-//    @GetMapping("/filter")
-//    public List<ProductDto> findProduct(@RequestParam("name") String name){
-//        return this.productRepository.findByProducts(name)
-//                        .stream()
-//                                .map(productService::productToDTO)
-//                                        .collect(Collectors.toList());
-//
-//    }
 
 }

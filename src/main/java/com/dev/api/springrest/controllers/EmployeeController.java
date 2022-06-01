@@ -1,6 +1,7 @@
 package com.dev.api.springrest.controllers;
 
 import com.dev.api.springrest.dtos.EmployeeDto;
+import com.dev.api.springrest.exceptions.EmployeeException;
 import com.dev.api.springrest.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EmployeeDto> findById(@PathVariable long id){
+    public ResponseEntity<EmployeeDto> findById(@PathVariable long id) throws EmployeeException {
         return ResponseEntity.ok(employeeService.findOneEmployee(id));
     }
 

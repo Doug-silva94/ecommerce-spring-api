@@ -1,6 +1,7 @@
 package com.dev.api.springrest.controllers;
 
 import com.dev.api.springrest.dtos.CategoryDto;
+import com.dev.api.springrest.exceptions.CategoryException;
 import com.dev.api.springrest.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryDto> findById(@PathVariable long id){
+    public ResponseEntity<CategoryDto> findById(@PathVariable long id) throws CategoryException {
         return ResponseEntity.ok(categoryService.findOneCategory(id));
     }
 

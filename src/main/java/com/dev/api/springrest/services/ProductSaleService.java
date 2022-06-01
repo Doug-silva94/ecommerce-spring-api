@@ -4,7 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.dev.api.springrest.dtos.CategoryDto;
 import com.dev.api.springrest.dtos.ProductSaleDto;
+import com.dev.api.springrest.exceptions.CategoryException;
+import com.dev.api.springrest.exceptions.ProductSaleException;
+import com.dev.api.springrest.models.Category;
 import com.dev.api.springrest.models.ProductSale;
 import com.dev.api.springrest.repositories.ProductSaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,7 @@ public class ProductSaleService {
 		productSaleDto.setId(productSale.getIdRel());
 		productSaleDto.setIdProd(productSale.getIdProd());
 		productSaleDto.setIdSale(productSale.getIdSale());
+
 		return productSaleDto;
 	}
 
@@ -29,24 +34,21 @@ public class ProductSaleService {
 		ProductSale productSale = new ProductSale();
 		productSale.setIdProd(productSaleToDto.getIdProd());
 		productSale.setIdSale(productSaleToDto.getIdSale());
+
 		return productSale;
 	}
 
-	public void saveSale(ProductSaleDto productSaleDto) /* throws Exception */ {
+	public void saveSale(ProductSaleDto productSaleDto)   {
 		ProductSale productSale = dtoToProductSale(productSaleDto);
-		// productSale.setCategory(categoryRepository.findById(productDTO.getCatId()).orElseThrow());
 		productSaleRepository.save(productSale);
 	}
 
-	public ProductSaleDto findOneProductSale(Long id) {
-		Optional<ProductSale> productSale = productSaleRepository.findById(id);
-		ProductSale productSaleOnData;
-		ProductSaleDto productSaleDto = new ProductSaleDto();
-		if (productSale.isPresent()) {
-			productSaleOnData = productSale.get();
-			productSaleDto = productSaleToDto(productSale.get());
-		}
-		return productSaleDto;
+	public ProductSale getProductSaleOrElseThrow(Long id) throws ProductSaleException {
+		return this.productSaleRepository.findById(id).orElseThrow(ProductSaleException::new);
+	}
+	public ProductSaleDto findOneProductSale(Long id) throws ProductSaleException {
+		var ex = new ProductSaleException(new ProductSaleException());
+		return productSaleToDto(this.getProductSaleOrElseThrow(id));
 	}
 
 

@@ -1,6 +1,7 @@
 package com.dev.api.springrest.services;
 
 import com.dev.api.springrest.dtos.SaleDto;
+import com.dev.api.springrest.exceptions.SaleException;
 import com.dev.api.springrest.models.Client;
 import com.dev.api.springrest.models.Product;
 import com.dev.api.springrest.models.Sale;
@@ -35,10 +36,10 @@ public class SaleService {
         return saleDto;
     }
 
-//              Verificar Exception
-//    public Sale getSaleOrElseThrow(Long id) throws SaleNotFoundException {
-//        return this.saleRepository.findById(id).orElseThrow(SaleNotFoundException::new);
-//    }
+
+    public Sale getSaleOrElseThrow(Long id) throws SaleException {
+        return this.saleRepository.findById(id).orElseThrow(SaleException::new);
+    }
 
     private <T> T getValue(T savedData, String dtoInput) {
         return dtoInput != null ? (T) dtoInput : savedData;
@@ -54,7 +55,7 @@ public class SaleService {
     }
 
     public Optional<Sale> findOneSale(Long id) {
-//        var ex = new SaleException(new SaleNotFoundException());
+        var ex = new SaleException(new SaleException());
         return saleRepository.findById(id);
     }
 
@@ -74,12 +75,10 @@ public class SaleService {
         saleRepository.deleteById(id);
     }
 
-//    public List<SaleDto> listAll() {
-//        return saleRepository.findAll()
-//                .stream()
-//                .map(this::saleToDTO)
-//                .collect(Collectors.toList());
-//    }
-
+    public List<SaleDto> listAll() {
+        return (List<SaleDto>) saleRepository.findAll().spliterator();
+    }
 
 }
+
+

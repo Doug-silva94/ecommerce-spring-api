@@ -3,6 +3,7 @@ package com.dev.api.springrest.controllers;
 import java.util.List;
 
 import com.dev.api.springrest.dtos.ProductSaleDto;
+import com.dev.api.springrest.exceptions.ProductSaleException;
 import com.dev.api.springrest.services.ProductSaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +30,7 @@ public class ProductSaleController {
 	    }
 
 	    @GetMapping("/{id}")
-	    public ResponseEntity<ProductSaleDto> findById(@PathVariable long id){
+	    public ResponseEntity<ProductSaleDto> findById(@PathVariable long id) throws ProductSaleException {
 	        return ResponseEntity.ok(productSaleService.findOneProductSale(id));
 	    }
 

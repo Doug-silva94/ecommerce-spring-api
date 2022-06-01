@@ -18,9 +18,18 @@ public class ClientService {
     @Autowired
     ClientRepository clientRepository;
 
-    public void saveClient(ClientDto clientDTO) {
-        Client client = dtoToClient(clientDTO);
-        clientRepository.save(client);
+    public Client dtoToClient(ClientDto clientDTO) {
+        Client client = new Client();
+
+        client.setName(clientDTO.getName());
+        client.setUserName(clientDTO.getUserName());
+        client.setEmail(clientDTO.getEmail());
+        client.setCpf(clientDTO.getCpf().replace(".", "").replace("-", ""));
+        client.setBirthDate(clientDTO.getBirthDate());
+        client.setAddress(clientDTO.getAddress());
+        client.setTelephone(clientDTO.getTelephone());
+
+        return client;
     }
 
     public ClientDto clientToDTO(Client client) {
@@ -38,26 +47,17 @@ public class ClientService {
         return clientDTO;
     }
 
+    public void saveClient(ClientDto clientDTO) {
+        Client client = dtoToClient(clientDTO);
+        clientRepository.save(client);
+    }
+
     public Client getClientOrElseThrow(Long id) throws ClientNotFoundException {
         return this.clientRepository.findById(id).orElseThrow(ClientNotFoundException::new);
     }
 
     private <T> T getValue(T savedData, String dtoInput) {
         return dtoInput != null ? (T) dtoInput : savedData;
-    }
-
-    public Client dtoToClient(ClientDto clientDTO) {
-        Client client = new Client();
-
-        client.setName(clientDTO.getName());
-        client.setUserName(clientDTO.getUserName());
-        client.setEmail(clientDTO.getEmail());
-        client.setCpf(clientDTO.getCpf().replace(".", "").replace("-", ""));
-        client.setBirthDate(clientDTO.getBirthDate());
-        client.setAddress(clientDTO.getAddress());
-        client.setTelephone(clientDTO.getTelephone());
-
-        return client;
     }
 
     public ClientDto findOneClient(Long id) throws ClientException {
@@ -67,7 +67,6 @@ public class ClientService {
 
     public void updateClient(Long id, ClientDto clientDTO) throws ClientException {
         Client clientOnBank = this.getClientOrElseThrow(id);
-
         clientOnBank.setEmail(getValue(clientOnBank.getEmail(), clientDTO.getEmail()));
         clientOnBank.setAddress(getValue(clientOnBank.getAddress(), clientDTO.getAddress()));
         clientOnBank.setTelephone(getValue(clientOnBank.getTelephone(), clientDTO.getTelephone()));
