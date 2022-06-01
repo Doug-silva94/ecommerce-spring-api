@@ -1,19 +1,14 @@
 package com.dev.api.springrest.services;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.dev.api.springrest.dtos.CategoryDto;
 import com.dev.api.springrest.dtos.ProductSaleDto;
-import com.dev.api.springrest.exceptions.CategoryException;
 import com.dev.api.springrest.exceptions.ProductSaleException;
-import com.dev.api.springrest.models.Category;
 import com.dev.api.springrest.models.ProductSale;
 import com.dev.api.springrest.repositories.ProductSaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class ProductSaleService {
@@ -46,12 +41,12 @@ public class ProductSaleService {
 	public ProductSale getProductSaleOrElseThrow(Long id) throws ProductSaleException {
 		return this.productSaleRepository.findById(id).orElseThrow(ProductSaleException::new);
 	}
+	
 	public ProductSaleDto findOneProductSale(Long id) throws ProductSaleException {
 		var ex = new ProductSaleException(new ProductSaleException());
 		return productSaleToDto(this.getProductSaleOrElseThrow(id));
 	}
-
-
+	
 	public void deleteSale(long id) {
 		productSaleRepository.deleteById(id);
 	}

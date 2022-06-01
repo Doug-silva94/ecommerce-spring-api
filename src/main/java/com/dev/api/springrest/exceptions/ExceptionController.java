@@ -17,5 +17,5 @@ public class ExceptionController {
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
-
+    
 }

@@ -15,40 +15,41 @@ import java.util.stream.Collectors;
 
 @Service
 public class ClientService {
-    @Autowired
+   
+	@Autowired
     ClientRepository clientRepository;
 
-    public Client dtoToClient(ClientDto clientDTO) {
+    public Client dtoToClient(ClientDto clientDto) {
         Client client = new Client();
 
-        client.setName(clientDTO.getName());
-        client.setUserName(clientDTO.getUserName());
-        client.setEmail(clientDTO.getEmail());
-        client.setCpf(clientDTO.getCpf().replace(".", "").replace("-", ""));
-        client.setBirthDate(clientDTO.getBirthDate());
-        client.setAddress(clientDTO.getAddress());
-        client.setTelephone(clientDTO.getTelephone());
+        client.setName(clientDto.getName());
+        client.setUserName(clientDto.getUserName());
+        client.setEmail(clientDto.getEmail());
+        client.setCpf(clientDto.getCpf().replace(".", "").replace("-", ""));
+        client.setBirthDate(clientDto.getBirthDate());
+        client.setAddress(clientDto.getAddress());
+        client.setTelephone(clientDto.getTelephone());
 
         return client;
     }
 
     public ClientDto clientToDTO(Client client) {
-        ClientDto clientDTO = new ClientDto();
+        ClientDto clientDto = new ClientDto();
 
-        clientDTO.setId(client.getId());
-        clientDTO.setName(client.getName());
-        clientDTO.setUserName(client.getUserName());
-        clientDTO.setEmail(client.getEmail());
-        clientDTO.setCpf(client.getCpf());
-        clientDTO.setBirthDate(client.getBirthDate());
-        clientDTO.setAddress(client.getAddress());
-        clientDTO.setTelephone(client.getTelephone());
+        clientDto.setId(client.getId());
+        clientDto.setName(client.getName());
+        clientDto.setUserName(client.getUserName());
+        clientDto.setEmail(client.getEmail());
+        clientDto.setCpf(client.getCpf());
+        clientDto.setBirthDate(client.getBirthDate());
+        clientDto.setAddress(client.getAddress());
+        clientDto.setTelephone(client.getTelephone());
 
-        return clientDTO;
+        return clientDto;
     }
 
-    public void saveClient(ClientDto clientDTO) {
-        Client client = dtoToClient(clientDTO);
+    public void saveClient(ClientDto clientDto) {
+        Client client = dtoToClient(clientDto);
         clientRepository.save(client);
     }
 
@@ -65,11 +66,11 @@ public class ClientService {
         return clientToDTO(this.getClientOrElseThrow(id));
     }
 
-    public void updateClient(Long id, ClientDto clientDTO) throws ClientException {
+    public void updateClient(Long id, ClientDto clientDto) throws ClientException {
         Client clientOnBank = this.getClientOrElseThrow(id);
-        clientOnBank.setEmail(getValue(clientOnBank.getEmail(), clientDTO.getEmail()));
-        clientOnBank.setAddress(getValue(clientOnBank.getAddress(), clientDTO.getAddress()));
-        clientOnBank.setTelephone(getValue(clientOnBank.getTelephone(), clientDTO.getTelephone()));
+        clientOnBank.setEmail(getValue(clientOnBank.getEmail(), clientDto.getEmail()));
+        clientOnBank.setAddress(getValue(clientOnBank.getAddress(), clientDto.getAddress()));
+        clientOnBank.setTelephone(getValue(clientOnBank.getTelephone(), clientDto.getTelephone()));
         clientRepository.save(clientOnBank);
     }
 

@@ -7,36 +7,35 @@ import com.dev.api.springrest.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
-    @Autowired
+    
+	@Autowired
     EmployeeRepository employeeRepository;
 
-
     public EmployeeDto employeeToDTO(Employee employee){
-        EmployeeDto employeeDTO = new EmployeeDto();
-        employeeDTO.setId(employee.getId());
-        employeeDTO.setName(employee.getName());
-        employeeDTO.setCpf(employee.getCpf());
+        EmployeeDto employeeDto = new EmployeeDto();
+        employeeDto.setId(employee.getId());
+        employeeDto.setName(employee.getName());
+        employeeDto.setCpf(employee.getCpf());
 
-        return employeeDTO;
+        return employeeDto;
     }
 
-    public Employee dtoToEmployee(EmployeeDto employeeDTO){
+    public Employee dtoToEmployee(EmployeeDto employeeDto){
         Employee employee = new Employee();
-        employee.setName(employeeDTO.getName());
-        employee.setCpf(employeeDTO.getCpf().replace(".", "").replace("-", ""));
+        employee.setName(employeeDto.getName());
+        employee.setCpf(employeeDto.getCpf().replace(".", "").replace("-", ""));
 
         return employee;
     }
 
-    public void saveEmployee(EmployeeDto employeeDTO) {
-        Employee employee = dtoToEmployee(employeeDTO);
+    public void saveEmployee(EmployeeDto employeeDto) {
+        Employee employee = dtoToEmployee(employeeDto);
         employeeRepository.save(employee);
     }
 
@@ -44,23 +43,21 @@ public class EmployeeService {
         return this.employeeRepository.findById(id).orElseThrow(EmployeeException::new);
     }
 
-
-
     public EmployeeDto findOneEmployee(Long id) throws EmployeeException {
         var ex = new EmployeeException(new EmployeeException());
         return employeeToDTO(this.getEmployeeOrElseThrow(id));
     }
 
-    public void updateEmployee(Long id, EmployeeDto employeeDTO) {
+    public void updateEmployee(Long id, EmployeeDto employeeDto) {
         Optional<Employee> employee = employeeRepository.findById(id);
         Employee employeeOnBank = new Employee();
         if (employee.isPresent()) {
             employeeOnBank = employee.get();
-            if (employeeDTO.getName() != null) {
-                employeeOnBank.setName(employeeDTO.getName());
+            if (employeeDto.getName() != null) {
+                employeeOnBank.setName(employeeDto.getName());
             }
-            if (employeeDTO.getCpf() != null) {
-                employeeOnBank.setCpf(employeeDTO.getCpf());
+            if (employeeDto.getCpf() != null) {
+                employeeOnBank.setCpf(employeeDto.getCpf());
             }
             employeeRepository.save(employeeOnBank);
         }
@@ -76,4 +73,5 @@ public class EmployeeService {
                 .map(this::employeeToDTO)
                 .collect(Collectors.toList());
     }
+    
 }

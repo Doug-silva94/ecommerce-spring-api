@@ -14,13 +14,13 @@ import java.util.List;
 @RequestMapping("product")
 public class ProductController {
 
-
     @Autowired
     ProductService productService;
 
-    @GetMapping()
-    public ResponseEntity<List<ProductDto>> listAll() {
-        return ResponseEntity.ok(productService.listAll());
+    @PostMapping()
+    public ResponseEntity<Void> createProduct(@RequestBody ProductDto productDto) throws Exception {
+        productService.saveProduct(productDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
@@ -29,14 +29,8 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody ProductDto productDTO) throws ProductException {
-        productService.updateProduct(id, productDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    @PostMapping()
-    public ResponseEntity<Void> createProduct(@RequestBody ProductDto productDTO) throws Exception {
-        productService.saveProduct(productDTO);
+    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody ProductDto productDto) throws ProductException {
+        productService.updateProduct(id, productDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -46,5 +40,9 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
+    @GetMapping()
+    public ResponseEntity<List<ProductDto>> listAll() {
+        return ResponseEntity.ok(productService.listAll());
+    }
 
 }

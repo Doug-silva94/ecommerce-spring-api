@@ -8,24 +8,22 @@ import java.sql.Date;
 
 @Getter
 @Setter
-public class SaleDto implements Serializable {
+public class ShopCartDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private long id;
     private Date date;
-    private Double price;
-
-    private Integer quantity;
+    private double value;
     private long idClient;
     private long idProd;
 
-    public SaleDto() {}
+    public ShopCartDto() {}
 
-    public SaleDto(long id, Date date, double price, long idClient, long idProd) {
+    public ShopCartDto(long id, Date date, double value, long idClient, long idProd) {
         this.id = id;
         this.date = date;
-        this.price = price;
+        this.value = value;
         this.idClient = idClient;
         this.idProd = idProd;
     }

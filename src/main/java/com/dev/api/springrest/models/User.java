@@ -9,7 +9,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class User {
-    @Id
+    
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
@@ -18,8 +19,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    public User() {
-    }
+    public User() {}
 
     public User(Long id, String username, String password) {
         this.id = id;

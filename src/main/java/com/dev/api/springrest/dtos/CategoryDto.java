@@ -1,13 +1,17 @@
 package com.dev.api.springrest.dtos;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class CategoryDto {
+public class CategoryDto implements Serializable {
 
-    private Long id;
+	private static final long serialVersionUID = 1L;
+	
+	private Long id;
     private String name;
     private String description;
 

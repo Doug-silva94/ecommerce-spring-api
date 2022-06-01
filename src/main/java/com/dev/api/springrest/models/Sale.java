@@ -30,14 +30,12 @@ public class Sale {
     @OneToOne
     private Client client;
 
-    public Sale() {
-    }
+    public Sale() {}
 
     public Sale(long id, Date date, double price) {
         this.id = id;
         this.date = date;
         this.price = price;
-
     }
 
 }

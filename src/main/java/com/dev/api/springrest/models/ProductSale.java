@@ -27,8 +27,7 @@ public class ProductSale {
     @Column(name = "sale_id")
     private long idSale;
 
-    public ProductSale() {
-    }
+    public ProductSale() {}
 
     public ProductSale(long idRel, long idProd, long idSale) {
         this.idRel = idRel;

@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.Getter;
@@ -46,8 +44,7 @@ public class Client {
     @OneToOne(mappedBy = "client")
     private Sale sale;
 
-    public Client() {
-    }
+    public Client() {}
 
     public Client(Long id, String name, String userName, String email, String cpf, Date birthDate, String address, String telephone) {
         this.id = id;

@@ -1,60 +1,57 @@
 package com.dev.api.springrest.services;
 
 import com.dev.api.springrest.dtos.CategoryDto;
-import com.dev.api.springrest.dtos.ClientDto;
 import com.dev.api.springrest.exceptions.CategoryException;
-import com.dev.api.springrest.exceptions.ClientException;
-import com.dev.api.springrest.exceptions.ClientNotFoundException;
 import com.dev.api.springrest.models.Category;
-import com.dev.api.springrest.models.Client;
 import com.dev.api.springrest.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
+	
 	@Autowired
 	CategoryRepository categoryRepository;
 
-	public CategoryDto categoryToDTO(Category category){
-		CategoryDto categoryDTO = new CategoryDto();
-		categoryDTO.setId(category.getId());
-		categoryDTO.setName(category.getName());
-		categoryDTO.setDescription(category.getDescription());
-		return categoryDTO;
+	public CategoryDto categoryToDTO(Category category) {
+		CategoryDto categoryDto = new CategoryDto();
+		categoryDto.setId(category.getId());
+		categoryDto.setName(category.getName());
+		categoryDto.setDescription(category.getDescription());
+		return categoryDto;
 	}
-	public Category dtoToCategory(CategoryDto categoryDTO){
+	
+	public Category dtoToCategory(CategoryDto categoryDto) {
 		Category category = new Category();
-		category.setName(categoryDTO.getName());
-		category.setDescription(categoryDTO.getDescription());
+		category.setName(categoryDto.getName());
+		category.setDescription(categoryDto.getDescription());
 		return category;
 	}
-	public void saveCategory(CategoryDto categoryDTO) {
-		Category category = dtoToCategory(categoryDTO);
+	
+	public void saveCategory(CategoryDto categoryDto) {
+		Category category = dtoToCategory(categoryDto);
 		categoryRepository.save(category);
 	}
 
 	public Category getCategoryOrElseThrow(Long id) throws CategoryException {
 		return this.categoryRepository.findById(id).orElseThrow(CategoryException::new);
 	}
+	
 	public CategoryDto findOneCategory(Long id) throws CategoryException {
 		var ex = new CategoryException(new CategoryException());
 		return categoryToDTO(this.getCategoryOrElseThrow(id));
 	}
 
-	public void updateCategory(Long id, CategoryDto categoryDTO) {
+	public void updateCategory(Long id, CategoryDto categoryDto) {
 		Category category = categoryRepository.findById(id).orElseThrow();
-		if (categoryDTO.getName() != null) {
-			category.setName(categoryDTO.getName());
+		if (categoryDto.getName() != null) {
+			category.setName(categoryDto.getName());
 		}
-		if (categoryDTO.getDescription() != null) {
-			category.setDescription(categoryDTO.getDescription());
+		if (categoryDto.getDescription() != null) {
+			category.setDescription(categoryDto.getDescription());
 		}
 		categoryRepository.save(category);
 	}
@@ -69,6 +66,5 @@ public class CategoryService {
 				.map(this::categoryToDTO)
 				.collect(Collectors.toList());
 	}
-
 
 }

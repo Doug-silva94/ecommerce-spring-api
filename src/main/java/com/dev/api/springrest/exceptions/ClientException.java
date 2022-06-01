@@ -1,7 +1,10 @@
 package com.dev.api.springrest.exceptions;
 
 public class ClientException extends Exception{
-    public ClientException() {
+
+	private static final long serialVersionUID = 1L;
+
+	public ClientException() {
         super();
     }
 

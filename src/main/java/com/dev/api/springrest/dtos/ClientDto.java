@@ -3,12 +3,16 @@ package com.dev.api.springrest.dtos;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 @Getter
 @Setter
-public class ClientDto {
-    private Long id;
+public class ClientDto implements Serializable {
+    
+	private static final long serialVersionUID = 1L;
+	
+	private Long id;
     private String name;
     private String userName;
     private String email;

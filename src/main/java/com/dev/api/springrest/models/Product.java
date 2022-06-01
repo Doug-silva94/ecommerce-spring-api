@@ -21,7 +21,8 @@ import lombok.Setter;
 @Setter
 @Table(name = "product")
 public class Product {
-    @Id
+  
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
@@ -46,8 +47,7 @@ public class Product {
     @ManyToOne
     private Employee employee;
 
-    public Product() {
-    }
+    public Product() {}
 
     public Product(Long id, String name, Double price, String description, Date expirationDate, int quantity) {
         this.id = id;
@@ -57,7 +57,6 @@ public class Product {
         this.expirationDate = expirationDate;
         this.quantity = quantity;
     }
-
-
+    
 }
 

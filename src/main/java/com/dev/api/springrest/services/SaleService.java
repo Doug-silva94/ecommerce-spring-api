@@ -10,14 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class SaleService {
-    @Autowired
+    
+	@Autowired
     SaleRepository saleRepository;
-
-    @Autowired
-
 
     public void buyProduct(SaleDto saleDto) {
         Sale sale = dtoToSale(saleDto);

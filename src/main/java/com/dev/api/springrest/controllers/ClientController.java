@@ -6,22 +6,24 @@ import com.dev.api.springrest.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/client")
 public class ClientController {
+	
     @Autowired
     ClientService clientService;
+    
     public ClientController(ClientService clientService) {
         this.clientService = clientService;
     }
 
-    @GetMapping()
-    public ResponseEntity<List<ClientDto>> listAll(){
-        return ResponseEntity.ok(clientService.listAll());
+    @PostMapping()
+    public ResponseEntity<Void> createClient(@RequestBody ClientDto clientDto){
+        clientService.saveClient(clientDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
@@ -30,14 +32,8 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody ClientDto clientDTO) throws ClientException {
-        clientService.updateClient(id, clientDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    @PostMapping()
-    public ResponseEntity<Void> createClient(@RequestBody ClientDto clientDTO){
-        clientService.saveClient(clientDTO);
+    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody ClientDto clientDto) throws ClientException {
+        clientService.updateClient(id, clientDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -46,4 +42,10 @@ public class ClientController {
         clientService.deleteClient(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }
+    
+    @GetMapping()
+    public ResponseEntity<List<ClientDto>> listAll(){
+        return ResponseEntity.ok(clientService.listAll());
+    }
+    
 }

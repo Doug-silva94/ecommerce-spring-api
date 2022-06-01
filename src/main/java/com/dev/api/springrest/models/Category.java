@@ -1,7 +1,5 @@
 package com.dev.api.springrest.models;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,8 +31,7 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private Set<Product> products;
 
-    public Category() {
-    }
+    public Category() {}
 
     public Category(Long id, String name, String description) {
         this.id = id;
