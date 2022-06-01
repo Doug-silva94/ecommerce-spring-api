@@ -2,11 +2,15 @@ package com.dev.api.springrest.dtos;
 
 import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CategoryDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -14,13 +18,5 @@ public class CategoryDto implements Serializable {
 	private Long id;
     private String name;
     private String description;
-
-    public CategoryDto() {}
-
-    public CategoryDto(Long id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
 
 }

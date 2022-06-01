@@ -2,11 +2,15 @@ package com.dev.api.springrest.dtos;
 
 import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class EmployeeDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -14,13 +18,5 @@ public class EmployeeDto implements Serializable {
 	private Long id;
     private String name;
     private String cpf;
-    
-    public EmployeeDto() {}
-    
-    public EmployeeDto(Long id, String name, String cpf) {
-        this.id = id;
-        this.name = name;
-        this.cpf = cpf;
-    }
     
 }

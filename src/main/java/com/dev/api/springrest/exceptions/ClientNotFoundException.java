@@ -2,9 +2,7 @@ package com.dev.api.springrest.exceptions;
 
 public class ClientNotFoundException extends ClientException {
 
-	private static final long serialVersionUID = 1L;
-
-	public ClientNotFoundException() {
+    public ClientNotFoundException() {
         super();
     }
 
@@ -19,5 +17,6 @@ public class ClientNotFoundException extends ClientException {
     public ClientNotFoundException(Exception e) {
         super(e);
     }
+
 
 }

@@ -1,6 +1,8 @@
 package com.dev.api.springrest.dtos;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -8,6 +10,8 @@ import java.sql.Date;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClientDto implements Serializable {
     
 	private static final long serialVersionUID = 1L;
@@ -20,18 +24,5 @@ public class ClientDto implements Serializable {
     private Date birthDate;
     private String address;
     private String telephone;
-
-    public ClientDto() {}
-
-    public ClientDto(Long id, String name, String userName, String email, String cpf, Date birthDate, String address, String telephone) {
-        this.id = id;
-        this.name = name;
-        this.userName = userName;
-        this.email = email;
-        this.cpf = cpf;
-        this.birthDate = birthDate;
-        this.address = address;
-        this.telephone = telephone;
-    }
 
 }

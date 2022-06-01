@@ -12,59 +12,59 @@ import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
-	
-	@Autowired
-	CategoryRepository categoryRepository;
+    @Autowired
+    CategoryRepository categoryRepository;
 
-	public CategoryDto categoryToDTO(Category category) {
-		CategoryDto categoryDto = new CategoryDto();
-		categoryDto.setId(category.getId());
-		categoryDto.setName(category.getName());
-		categoryDto.setDescription(category.getDescription());
-		return categoryDto;
-	}
-	
-	public Category dtoToCategory(CategoryDto categoryDto) {
-		Category category = new Category();
-		category.setName(categoryDto.getName());
-		category.setDescription(categoryDto.getDescription());
-		return category;
-	}
-	
-	public void saveCategory(CategoryDto categoryDto) {
-		Category category = dtoToCategory(categoryDto);
-		categoryRepository.save(category);
-	}
+    public CategoryDto categoryToDTO(Category category) {
+        CategoryDto categoryDTO = new CategoryDto();
+        categoryDTO.setId(category.getId());
+        categoryDTO.setName(category.getName());
+        categoryDTO.setDescription(category.getDescription());
+        return categoryDTO;
+    }
 
-	public Category getCategoryOrElseThrow(Long id) throws CategoryException {
-		return this.categoryRepository.findById(id).orElseThrow(CategoryException::new);
-	}
-	
-	public CategoryDto findOneCategory(Long id) throws CategoryException {
-		var ex = new CategoryException(new CategoryException());
-		return categoryToDTO(this.getCategoryOrElseThrow(id));
-	}
+    public Category dtoToCategory(CategoryDto categoryDTO) {
+        Category category = new Category();
+        category.setName(categoryDTO.getName());
+        category.setDescription(categoryDTO.getDescription());
+        return category;
+    }
 
-	public void updateCategory(Long id, CategoryDto categoryDto) {
-		Category category = categoryRepository.findById(id).orElseThrow();
-		if (categoryDto.getName() != null) {
-			category.setName(categoryDto.getName());
-		}
-		if (categoryDto.getDescription() != null) {
-			category.setDescription(categoryDto.getDescription());
-		}
-		categoryRepository.save(category);
-	}
+    public void saveCategory(CategoryDto categoryDTO) {
+        Category category = dtoToCategory(categoryDTO);
+        categoryRepository.save(category);
+    }
 
-	public void deleteCategory(long id){
-		categoryRepository.deleteById(id);
-	}
+    public Category getCategoryOrElseThrow(Long id) throws CategoryException {
+        return this.categoryRepository.findById(id).orElseThrow(CategoryException::new);
+    }
 
-	public List<CategoryDto> listAll() {
-		return categoryRepository.findAll()
-				.stream()
-				.map(this::categoryToDTO)
-				.collect(Collectors.toList());
-	}
+    public CategoryDto findOneCategory(Long id) throws CategoryException {
+        var ex = new CategoryException(new CategoryException());
+        return categoryToDTO(this.getCategoryOrElseThrow(id));
+    }
+
+    public void updateCategory(Long id, CategoryDto categoryDTO) {
+        Category category = categoryRepository.findById(id).orElseThrow();
+        if (categoryDTO.getName() != null) {
+            category.setName(categoryDTO.getName());
+        }
+        if (categoryDTO.getDescription() != null) {
+            category.setDescription(categoryDTO.getDescription());
+        }
+        categoryRepository.save(category);
+    }
+
+    public void deleteCategory(long id) {
+        categoryRepository.deleteById(id);
+    }
+
+    public List<CategoryDto> listAll() {
+        return categoryRepository.findAll()
+                .stream()
+                .map(this::categoryToDTO)
+                .collect(Collectors.toList());
+    }
+
 
 }

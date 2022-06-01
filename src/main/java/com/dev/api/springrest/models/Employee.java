@@ -9,12 +9,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Employee {
     
 	@Id
@@ -29,12 +33,5 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
     private List<Product> product;
 
-    public Employee() {}
-
-    public Employee(Long id, String name, String cpf) {
-        this.id = id;
-        this.name = name;
-        this.cpf = cpf;
-    }
 
 }

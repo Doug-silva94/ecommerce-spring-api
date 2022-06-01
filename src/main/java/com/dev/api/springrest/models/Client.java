@@ -10,13 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "client")
 public class Client {
 
@@ -44,17 +48,5 @@ public class Client {
     @OneToOne(mappedBy = "client")
     private Sale sale;
 
-    public Client() {}
-
-    public Client(Long id, String name, String userName, String email, String cpf, Date birthDate, String address, String telephone) {
-        this.id = id;
-        this.name = name;
-        this.userName = userName;
-        this.email = email;
-        this.cpf = cpf;
-        this.birthDate = birthDate;
-        this.address = address;
-        this.telephone = telephone;
-    }
 
 }

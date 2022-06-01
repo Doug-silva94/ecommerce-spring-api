@@ -13,12 +13,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "product")
 public class Product {
   
@@ -46,17 +50,6 @@ public class Product {
 
     @ManyToOne
     private Employee employee;
-
-    public Product() {}
-
-    public Product(Long id, String name, Double price, String description, Date expirationDate, int quantity) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.expirationDate = expirationDate;
-        this.quantity = quantity;
-    }
     
 }
 

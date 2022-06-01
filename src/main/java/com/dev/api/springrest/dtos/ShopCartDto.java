@@ -1,6 +1,8 @@
 package com.dev.api.springrest.dtos;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -8,6 +10,8 @@ import java.sql.Date;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ShopCartDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -18,14 +22,4 @@ public class ShopCartDto implements Serializable {
     private long idClient;
     private long idProd;
 
-    public ShopCartDto() {}
-
-    public ShopCartDto(long id, Date date, double value, long idClient, long idProd) {
-        this.id = id;
-        this.date = date;
-        this.value = value;
-        this.idClient = idClient;
-        this.idProd = idProd;
-    }
-    
 }

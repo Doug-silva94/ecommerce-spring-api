@@ -9,12 +9,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "product_sale")
 public class ProductSale {
 
@@ -26,14 +30,6 @@ public class ProductSale {
     private long idProd;
     @Column(name = "sale_id")
     private long idSale;
-
-    public ProductSale() {}
-
-    public ProductSale(long idRel, long idProd, long idSale) {
-        this.idRel = idRel;
-        this.idProd = idProd;
-        this.idSale = idSale;
-    }
 
     @ManyToOne
     @JoinColumn(name = "prod_id", referencedColumnName = "id", insertable = false, updatable = false)

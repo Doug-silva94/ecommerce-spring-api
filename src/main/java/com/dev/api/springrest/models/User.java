@@ -1,6 +1,8 @@
 package com.dev.api.springrest.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,6 +10,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     
 	@Id
@@ -18,13 +22,5 @@ public class User {
     private String username;
     @Column(name = "password")
     private String password;
-
-    public User() {}
-
-    public User(Long id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-    }
 
 }

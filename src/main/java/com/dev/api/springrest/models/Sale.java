@@ -5,12 +5,16 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "sale_table")
 public class Sale {
     @Id
@@ -29,13 +33,5 @@ public class Sale {
 
     @OneToOne
     private Client client;
-
-    public Sale() {}
-
-    public Sale(long id, Date date, double price) {
-        this.id = id;
-        this.date = date;
-        this.price = price;
-    }
 
 }
