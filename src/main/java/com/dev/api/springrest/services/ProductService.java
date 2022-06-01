@@ -1,6 +1,7 @@
 package com.dev.api.springrest.services;
 
 import com.dev.api.springrest.dtos.ProductDto;
+import com.dev.api.springrest.models.Category;
 import com.dev.api.springrest.models.Product;
 import com.dev.api.springrest.repositories.CategoryRepository;
 import com.dev.api.springrest.repositories.ProductRepository;
@@ -26,6 +27,7 @@ public class ProductService {
 	}
 
 	public ProductDto productToDTO(Product product){
+		Category category = new Category();
 		ProductDto productDTO = new ProductDto();
 		productDTO.setId(product.getId());
 		productDTO.setName(product.getName());
@@ -33,7 +35,7 @@ public class ProductService {
 		productDTO.setDescription(product.getDescription());
 		productDTO.setExpirationDate(product.getExpirationDate());
 		productDTO.setQuantity(product.getQuantity());
-		productDTO.setCatId(product.getId());
+		productDTO.setCatId(category.getId());
 
 		return productDTO;
 	}
