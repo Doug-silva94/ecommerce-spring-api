@@ -23,5 +23,6 @@ public class ProductDto implements Serializable {
     private long catId;
     private Date expirationDate;
     private int quantity;
+    private String serviceType;
 
 }

@@ -36,9 +36,4 @@ public class Product {
     @JoinColumn(name = "cat_id", referencedColumnName = "id", nullable = false)
     private Category category;
 
-    @OneToMany(mappedBy = "product")
-    private Set<ProductSale> productSales;
-
-
 }
-

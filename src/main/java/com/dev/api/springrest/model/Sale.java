@@ -16,6 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Table(name = "sale_table")
 public class Sale {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -26,9 +27,14 @@ public class Sale {
     private int quantity;
     @Column(name = "price")
     private double price;
+    @Column(name = "service_type")
+    private String serviceType;
+    @Column(name = "nfe")
+    private String nfe;
 
-    @OneToMany(mappedBy = "sale")
-    private Set<ProductSale> productSales;
+    @OneToOne
+    @JoinColumn(name = "prod_id", referencedColumnName = "id")
+    private Product product;
 
     @OneToOne
     private Client client;

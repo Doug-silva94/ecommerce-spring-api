@@ -22,6 +22,8 @@ public class SaleDto implements Serializable {
     private Integer quantity;
     private long idClient;
     private long idProd;
+    private String nfe;
+    private String serviceType;
 
 
 }
