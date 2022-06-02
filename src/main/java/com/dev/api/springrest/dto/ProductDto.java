@@ -14,9 +14,9 @@ import java.sql.Date;
 @NoArgsConstructor
 public class ProductDto implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	private Long id;
+    private static final long serialVersionUID = 1L;
+
+    private Long id;
     private String name;
     private Double unitaryValue;
     private String description;

@@ -1,4 +1,4 @@
-/*package com.dev.api.springrest.security;
+package com.dev.api.springrest.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,4 +10,3 @@ public class UserAuthenticationResponse {
     private final String token;
 
 }
-*/

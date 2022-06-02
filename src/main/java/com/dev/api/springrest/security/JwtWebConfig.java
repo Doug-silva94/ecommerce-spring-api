@@ -1,6 +1,6 @@
-/*package com.dev.api.springrest.security;
+package com.dev.api.springrest.security;
 
-import com.dev.api.springrest.services.UserDetailService;
+import com.dev.api.springrest.service.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -36,7 +36,7 @@ public class JwtWebConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/usuario/authenticate","/usuario/salvar")
+                .antMatchers("/usuario/authenticate", "/usuario/salvar")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -54,7 +54,6 @@ public class JwtWebConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/h2-console/**","/swagger-ui/**","/swagger-ui.html**","/v2/api-docs","/swagger-resources/**");
+                .antMatchers("/h2-console/**", "/swagger-ui/**", "/swagger-ui.html**", "/v2/api-docs", "/swagger-resources/**");
     }
 }
-*/

@@ -1,22 +1,20 @@
 package com.dev.api.springrest.service;
 
 import com.dev.api.springrest.dto.ClientDto;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.dev.api.springrest.exception.ClientException;
 import com.dev.api.springrest.exception.ClientNotFoundException;
 import com.dev.api.springrest.model.Client;
 import com.dev.api.springrest.repository.ClientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class ClientService {
-   
-	@Autowired
+
+    @Autowired
     ClientRepository clientRepository;
 
     public Client dtoToClient(ClientDto clientDto) {

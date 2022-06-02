@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
-    
-	@Autowired
+
+    @Autowired
     EmployeeRepository employeeRepository;
 
-    public EmployeeDto employeeToDTO(Employee employee){
+    public EmployeeDto employeeToDTO(Employee employee) {
         EmployeeDto employeeDto = new EmployeeDto();
         employeeDto.setId(employee.getId());
         employeeDto.setName(employee.getName());
@@ -26,7 +26,7 @@ public class EmployeeService {
         return employeeDto;
     }
 
-    public Employee dtoToEmployee(EmployeeDto employeeDto){
+    public Employee dtoToEmployee(EmployeeDto employeeDto) {
         Employee employee = new Employee();
         employee.setName(employeeDto.getName());
         employee.setCpf(employeeDto.getCpf().replace(".", "").replace("-", ""));
@@ -63,15 +63,15 @@ public class EmployeeService {
         }
     }
 
-    public void deleteEmployee(long id){
+    public void deleteEmployee(long id) {
         employeeRepository.deleteById(id);
     }
 
-    public List<EmployeeDto> listAll(){
+    public List<EmployeeDto> listAll() {
         return employeeRepository.findAll()
                 .stream()
                 .map(this::employeeToDTO)
                 .collect(Collectors.toList());
     }
-    
+
 }

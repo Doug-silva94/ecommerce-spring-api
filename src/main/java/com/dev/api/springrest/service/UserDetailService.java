@@ -1,7 +1,7 @@
-/*package com.dev.api.springrest.services;
+package com.dev.api.springrest.service;
 
-import com.dev.api.springrest.models.User;
-import com.dev.api.springrest.repositories.UserRepository;
+import com.dev.api.springrest.repository.UserRepository;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 @Service
 public class UserDetailService implements UserDetailsService {
 
-   private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserDetailService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -21,7 +21,6 @@ public class UserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return new User("admin","admin", new ArrayList<>());
+        return new User("admin", "admin", new ArrayList<>());
     }
 }
-*/

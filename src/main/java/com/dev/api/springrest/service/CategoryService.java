@@ -60,10 +60,7 @@ public class CategoryService {
     }
 
     public List<CategoryDto> listAll() {
-        return categoryRepository.findAll()
-                .stream()
-                .map(this::categoryToDTO)
-                .collect(Collectors.toList());
+        return categoryRepository.findAll().stream().map(this::categoryToDTO).collect(Collectors.toList());
     }
 
 

@@ -2,9 +2,9 @@ package com.dev.api.springrest.exception;
 
 public class EmployeeException extends Exception {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public EmployeeException() {
+    public EmployeeException() {
         super();
     }
 
@@ -19,5 +19,5 @@ public class EmployeeException extends Exception {
     public EmployeeException(Exception e) {
         super(e);
     }
-	
+
 }

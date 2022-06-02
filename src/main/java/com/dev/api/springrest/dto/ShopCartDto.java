@@ -14,9 +14,9 @@ import java.sql.Date;
 @NoArgsConstructor
 public class ShopCartDto implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	private long id;
+    private static final long serialVersionUID = 1L;
+
+    private long id;
     private Date date;
     private double value;
     private long idClient;

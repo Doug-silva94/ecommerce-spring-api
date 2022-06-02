@@ -14,70 +14,72 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
-	
-	@Autowired
-	private ProductRepository productRepository;
 
-	@Autowired
-	CategoryRepository categoryRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
-	public ProductDto productToDTO(Product product){
-		Category category = new Category();
-		ProductDto productDto = new ProductDto();
-		productDto.setId(product.getId());
-		productDto.setName(product.getName());
-		productDto.setUnitaryValue(product.getPrice());
-		productDto.setDescription(product.getDescription());
-		productDto.setExpirationDate(product.getExpirationDate());
-		productDto.setQuantity(product.getQuantity());
-		productDto.setCatId(category.getId());
+    @Autowired
+    CategoryRepository categoryRepository;
 
-		return productDto;
-	}
+    public ProductDto productToDTO(Product product) {
+        Category category = new Category();
+        ProductDto productDto = new ProductDto();
+        productDto.setId(product.getId());
+        productDto.setName(product.getName());
+        productDto.setUnitaryValue(product.getPrice());
+        productDto.setDescription(product.getDescription());
+        productDto.setExpirationDate(product.getExpirationDate());
+        productDto.setQuantity(product.getQuantity());
+        productDto.setCatId(category.getId());
 
-	public Product dtoToProduct(ProductDto productDto){
-		Product product = new Product();
-		product.setName(productDto.getName());
-		product.setPrice(productDto.getUnitaryValue());
-		product.setDescription(productDto.getDescription());
-		product.setExpirationDate(productDto.getExpirationDate());
-		product.setQuantity(productDto.getQuantity());
+        return productDto;
+    }
 
-		return product;
-	}
+    public Product dtoToProduct(ProductDto productDto) {
+        Product product = new Product();
+        product.setName(productDto.getName());
+        product.setPrice(productDto.getUnitaryValue());
+        product.setDescription(productDto.getDescription());
+        product.setExpirationDate(productDto.getExpirationDate());
+        product.setQuantity(productDto.getQuantity());
 
-	public void saveProduct(ProductDto productDto) throws Exception {
-		Product product = dtoToProduct(productDto);
-		product.setCategory(categoryRepository.findById(productDto.getCatId()).orElseThrow());
-		productRepository.save(product);
-	}
-	
-	public ProductDto findOneProduct(Long id) throws ProductException {
-		var ex = new ProductException(new ProductException());
-		return productToDTO(this.getProductOrElseThrow(id));
-	}
-	
-	public Product getProductOrElseThrow(Long id) throws ProductException {
-		return this.productRepository.findById(id).orElseThrow(ProductException::new);
-	}
-	
-	public void updateProduct(Long id, ProductDto productDto) throws ProductException {
-		Product productOnBank = this.getProductOrElseThrow(id);
-		productOnBank.setDescription(productDto.getDescription());
-		productOnBank.setExpirationDate(productDto.getExpirationDate());
-		productOnBank.setQuantity(productDto.getQuantity());
-		productRepository.save(productOnBank);
-	}
-	
-	public void deleteProduct(long id){productRepository.deleteById(id);}
+        return product;
+    }
 
-	public List<ProductDto> listAll() {
-		return productRepository.findAll()
-				.stream()
-				.map(this::productToDTO)
-				.collect(Collectors.toList());
-	}
-	
+    public void saveProduct(ProductDto productDto) throws Exception {
+        Product product = dtoToProduct(productDto);
+        product.setCategory(categoryRepository.findById(productDto.getCatId()).orElseThrow());
+        productRepository.save(product);
+    }
+
+    public ProductDto findOneProduct(Long id) throws ProductException {
+        var ex = new ProductException(new ProductException());
+        return productToDTO(this.getProductOrElseThrow(id));
+    }
+
+    public Product getProductOrElseThrow(Long id) throws ProductException {
+        return this.productRepository.findById(id).orElseThrow(ProductException::new);
+    }
+
+    public void updateProduct(Long id, ProductDto productDto) throws ProductException {
+        Product productOnBank = this.getProductOrElseThrow(id);
+        productOnBank.setDescription(productDto.getDescription());
+        productOnBank.setExpirationDate(productDto.getExpirationDate());
+        productOnBank.setQuantity(productDto.getQuantity());
+        productRepository.save(productOnBank);
+    }
+
+    public void deleteProduct(long id) {
+        productRepository.deleteById(id);
+    }
+
+    public List<ProductDto> listAll() {
+        return productRepository.findAll()
+                .stream()
+                .map(this::productToDTO)
+                .collect(Collectors.toList());
+    }
+
 }
 
 

@@ -19,7 +19,7 @@ public class MailController {
 
     @PostMapping
     public ResponseEntity<Void> sendMail() throws MessagingException {
-       mailSend.mailTest();
+        mailSend.mailTest();
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

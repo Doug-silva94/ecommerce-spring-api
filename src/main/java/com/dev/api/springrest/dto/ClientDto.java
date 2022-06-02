@@ -13,10 +13,10 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClientDto implements Serializable {
-    
-	private static final long serialVersionUID = 1L;
-	
-	private Long id;
+
+    private static final long serialVersionUID = 1L;
+
+    private Long id;
     private String name;
     private String userName;
     private String email;

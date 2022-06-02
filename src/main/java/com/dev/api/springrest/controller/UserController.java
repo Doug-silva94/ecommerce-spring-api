@@ -1,7 +1,7 @@
-/*package com.dev.api.springrest.controllers;
+package com.dev.api.springrest.controller;
 
-import com.dev.api.springrest.dtos.UserDto;
-import com.dev.api.springrest.repositories.UserRepository;
+import com.dev.api.springrest.dto.UserDto;
+import com.dev.api.springrest.repository.UserRepository;
 import com.dev.api.springrest.security.JwtUtil;
 import com.dev.api.springrest.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +29,13 @@ public class UserController {
     private JwtUtil jwt;
 
     @PostMapping
-    public ResponseEntity<Long> save(@RequestBody @Valid UserDto userDto){
+    public ResponseEntity<Long> save(@RequestBody @Valid UserDto userDto) {
         return ResponseEntity.ok(userService.save(userDto));
     }
 
     @GetMapping
-    public ResponseEntity<UserDto> find (@RequestParam String username){
+    public ResponseEntity<UserDto> find(@RequestParam String username) {
         return ResponseEntity.ok(userService.findById(Long.valueOf(username)));
     }
 
 }
-*/

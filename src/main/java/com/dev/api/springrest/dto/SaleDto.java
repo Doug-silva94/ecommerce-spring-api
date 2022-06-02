@@ -14,15 +14,14 @@ import java.sql.Date;
 @NoArgsConstructor
 public class SaleDto implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	private long id;
+    private static final long serialVersionUID = 1L;
+
+    private long id;
     private Date date;
     private Double price;
-
     private Integer quantity;
     private long idClient;
     private long idProd;
 
-    
+
 }

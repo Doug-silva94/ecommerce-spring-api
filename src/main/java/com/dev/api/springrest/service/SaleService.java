@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class SaleService {
-    
-	@Autowired
+
+    @Autowired
     SaleRepository saleRepository;
 
     public void buyProduct(SaleDto saleDto) {
@@ -56,19 +56,19 @@ public class SaleService {
         return saleRepository.findById(id);
     }
 
-    public void updateSale(Long id, SaleDto saleDto)  {
+    public void updateSale(Long id, SaleDto saleDto) {
         Sale sale = saleRepository.findById(id).orElseThrow();
         if (saleDto.getPrice() != null) {
-           sale.setPrice(saleDto.getPrice());
+            sale.setPrice(saleDto.getPrice());
         }
         if (saleDto.getQuantity() != null) {
-           sale.setQuantity(saleDto.getQuantity());
+            sale.setQuantity(saleDto.getQuantity());
         }
         saleRepository.save(sale);
     }
 
 
-    public void deleteSale(long id){
+    public void deleteSale(long id) {
         saleRepository.deleteById(id);
     }
 

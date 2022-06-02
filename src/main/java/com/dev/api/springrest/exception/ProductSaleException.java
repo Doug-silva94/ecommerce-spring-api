@@ -2,9 +2,9 @@ package com.dev.api.springrest.exception;
 
 public class ProductSaleException extends Exception {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public ProductSaleException() {
+    public ProductSaleException() {
         super();
     }
 
@@ -19,5 +19,5 @@ public class ProductSaleException extends Exception {
     public ProductSaleException(Exception e) {
         super(e);
     }
-	
+
 }

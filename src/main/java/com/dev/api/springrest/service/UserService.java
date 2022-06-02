@@ -1,8 +1,8 @@
-/*package com.dev.api.springrest.services;
+package com.dev.api.springrest.service;
 
-import com.dev.api.springrest.dtos.UserDto;
-import com.dev.api.springrest.models.User;
-import com.dev.api.springrest.repositories.UserRepository;
+import com.dev.api.springrest.dto.UserDto;
+import com.dev.api.springrest.model.User;
+import com.dev.api.springrest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,7 +57,7 @@ public class UserService {
         return user.getId();
     }
 
-    public UserDto findByLogin(String username){
+    public UserDto findByLogin(String username) {
         return userRepository.findAll()
                 .stream()
                 .filter(user -> user.getId().equals(username))
@@ -66,4 +66,3 @@ public class UserService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 }
-*/
