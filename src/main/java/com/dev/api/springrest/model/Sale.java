@@ -13,7 +13,7 @@ import java.sql.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "sale_table")
+@Table(name = "sale")
 public class Sale {
 
     @Id

@@ -63,8 +63,6 @@ public class ProductService {
 
     public void updateProduct(Long id, ProductDto productDto) throws ProductException {
         Product productOnBank = this.getProductOrElseThrow(id);
-        productOnBank.setDescription(productDto.getDescription());
-        productOnBank.setExpirationDate(productDto.getExpirationDate());
         productOnBank.setQuantity(productDto.getQuantity());
         productRepository.save(productOnBank);
     }

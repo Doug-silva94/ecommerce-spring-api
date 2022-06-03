@@ -1,10 +1,20 @@
 package com.dev.api.springrest.repository;
 
-import com.dev.api.springrest.model.Category;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import com.dev.api.springrest.model.Category;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long>{
 
+	
+	@Query(value = "SELECT C.ID, C.NAME, C.DESCRIPTION, E.ID  "
+			+ "FROM CATEGORY C, EMPLOYEE E "
+			+ "WHERE C.EMPLOYEE_ID = E.ID ;", nativeQuery = true)
+	List<Category>listAll();
+	
 }

@@ -1,16 +1,17 @@
 package com.dev.api.springrest.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.dev.api.springrest.dto.CategoryDto;
 import com.dev.api.springrest.exception.CategoryException;
 import com.dev.api.springrest.model.Category;
 import com.dev.api.springrest.model.Employee;
 import com.dev.api.springrest.repository.CategoryRepository;
 import com.dev.api.springrest.repository.EmployeeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -68,7 +69,10 @@ public class CategoryService {
     }
 
     public List<CategoryDto> listAll() {
-        return categoryRepository.findAll().stream().map(this::categoryToDTO).collect(Collectors.toList());
+        return categoryRepository.listAll()
+        		.stream()
+        		.map(this::categoryToDTO)
+        		.collect(Collectors.toList());
     }
 
 

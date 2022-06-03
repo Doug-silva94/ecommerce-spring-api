@@ -48,4 +48,50 @@
     "serviceType": "Lorem Ipsum"
     }
 
+========================================================================================
 
+Insert ==  Insert ==  Insert ==  Insert ==  Insert ==  Insert ==  Insert ==  Insert ==    
+
+
+
+
+insert into employee values (1, 10110210344, 'Matheus'),
+						(2, 20120220366, 'Leo'),	
+						(3, 30130230377, 'Doug');
+					
+insert into category values (1, 'Itens de musculação', 'musculação', 1),
+						(2, 'Itens para Futebol', 'Futebol', 3),
+						(3, 'Itens para Luta', 'Lucha' , 2 );
+
+insert into client values (1, 'Rua a, 10', '2000-10-15', '10210310455', 'matheus@gmail.com', 'Matheus Freitas', '21910102020', 'matheus@'),
+						(2, 'Rua B, 20', '2000-11-15', '10210310466', 'leo@gmail.com', 'Leo sei la de que', '21910103030', 'leo@'),
+						(3, 'Rua C, 30', '2000-12-15', '10210310477', 'douglas@gmail.com', 'Douglas sei la de que', '21910104040', 'douglas@'),
+						(4, 'Rua a, 10', '2000-01-15', '10210310488', 'thais@gmail.com', 'Thais sei la de que', '21910105050', 'thais@'),
+						(5, 'Rua a, 10', '2000-02-15', '10210310499', 'ana@gmail.com', 'Ana sei la de que', '21910106060', 'ana@'),
+						(6, 'Rua a, 10', '2000-03-15', '10210310400', 'rodrigo@gmail.com', 'Rodrigo sei la de que', '21910107070', 'rodrigo@');
+
+insert into product values (1, 'Corda de pular','2000-03-15', 'corda vagabunda', 10, 3, 1 ),
+							(2, 'Kit de halteres 18kg','2000-03-15', 'Halteres ', 225, 2, 1 ),
+							(3, 'Whey protein 1kg','2033-03-15', 'Whey Protein', 99, 10, 1 ),
+							(4, 'Colchonete para ','2022-03-15', 'colchonete', 22 , 3, 1 ),
+							(5, 'Garrafa 780ml','2030-03-15', 'Garrafa', 10, 2, 1 ),
+							(6, 'Meião de futebol','2000-03-15', 'Meião', 10, 3, 2 ),
+							(7, 'Bola da copa','2000-03-15', 'Bola', 100, 3, 2 ),
+							(8, 'Chuteira da adidas','2000-03-15', 'Chuteira', 199, 3, 2 ),
+							(9, 'Caneleira adidas','2000-03-15', 'Caneleira de madeira', 10, 3, 2 ),
+							(10, 'Manto do Flamengo M','2000-03-15', 'Camisa', 10, 3, 2 ),
+							(11, 'Luva de boxe','2000-03-15', 'Luva', 10, 3, 3 ),
+							(12, 'Bandagem ','2000-03-15', 'Bandagem ', 10, 3, 3 ),
+							(13, 'Cinturão','2000-03-15', 'Cinturão', 10, 3, 3 ),
+							(14, 'Saco de porrada','2000-03-15', 'Saco personalizado', 10, 3, 3 ),
+							(15, 'Tatame','2000-03-15', 'Tatame', 10, 3, 3 );
+						
+insert into sale_table values(1, '2000-03-15', 1, 10,  2, 'Venda', 2, 1 ),
+							(2, '2000-03-15', 2, 100, 1, 'Venda', 2, 7 ),
+							(3, '2000-03-15', 3, 199, 2, 'Venda', 2, 8 ),
+							(4, '2000-03-15', 4, 225, 3, 'Venda', 2, 2 ),
+							(5, '2000-03-15', 1, 22,  1, 'Compra', 2, 4 ),
+							(6, '2000-03-15', 5, 10,  4, 'Compra', 2, 10 ),
+							(7, '2000-03-15', 12,225, 1, 'Compra', 2, 2 ),
+							(8, '2000-03-15', 5, 10,  2, 'Venda', 2, 14 ),
+							(9, '2000-03-15', 6, 100, 2, 'Compra', 1, 7 );

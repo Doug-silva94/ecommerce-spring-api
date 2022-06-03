@@ -1,5 +1,13 @@
 package com.dev.api.springrest.service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dev.api.springrest.dto.ReportDto;
 import com.dev.api.springrest.dto.SaleDto;
 import com.dev.api.springrest.exception.SaleException;
 import com.dev.api.springrest.model.Client;
@@ -8,12 +16,6 @@ import com.dev.api.springrest.model.Sale;
 import com.dev.api.springrest.repository.ClientRepository;
 import com.dev.api.springrest.repository.ProductRepository;
 import com.dev.api.springrest.repository.SaleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class SaleService {
@@ -102,5 +104,13 @@ public class SaleService {
                 .map(sale -> saleToDto(sale))
                 .collect(Collectors.toList());
      }
+    
+    public List<ReportDto> topFive(){
+    	return saleRepository.topFive();
+  
+    	
+    	 
+    }
+    
 
 }
