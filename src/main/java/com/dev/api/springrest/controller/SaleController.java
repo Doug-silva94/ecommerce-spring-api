@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/sale")
@@ -18,11 +17,11 @@ public class SaleController {
     @Autowired
     SaleService saleService;
 
-//    @PostMapping()
-//    public ResponseEntity<Void> createProduct(@RequestBody SaleDto saleDto) throws Exception {
-//        saleService.saveSale(saleDto);
-//        return new ResponseEntity<>(HttpStatus.CREATED);
-//    }
+    @PostMapping()
+    public ResponseEntity<Void> createProduct(@RequestBody SaleDto saleDto) throws Exception {
+        saleService.saveSale(saleDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<SaleDto> findById(@PathVariable long id) throws SaleException {

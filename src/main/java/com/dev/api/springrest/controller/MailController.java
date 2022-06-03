@@ -19,7 +19,7 @@ public class MailController {
 
     @PostMapping
     public ResponseEntity<Void> sendMail() throws MessagingException {
-    	String product = "Produto teste de e-mail";
+    	String product = "Produto e-mail";
     	Integer amounts = 5;
     	Double value = 2.0;
     	mailSend.emailProduct(product, amounts, value);
@@ -28,7 +28,7 @@ public class MailController {
     
     @PostMapping("/emailProductInventory")
     public ResponseEntity<Void> emailProductInventory() throws MessagingException {
-    	String product = "Produto teste de e-mail";
+    	String product = "Produto e-mail";
     	Integer amounts = 1;
     	mailSend.emailProductInventory(product, amounts);
         return new ResponseEntity<>(HttpStatus.CREATED);

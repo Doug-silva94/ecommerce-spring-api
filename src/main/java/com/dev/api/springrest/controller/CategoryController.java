@@ -43,7 +43,6 @@ public class CategoryController {
         categoryService.deleteCategory(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
-
     @GetMapping()
     public ResponseEntity<List<CategoryDto>> listAll() {
         return ResponseEntity.ok(categoryService.listAll());

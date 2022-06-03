@@ -27,7 +27,6 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     private Set<Product> products;
-
     @ManyToOne
     private Employee employee;
 

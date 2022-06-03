@@ -62,10 +62,10 @@ public class SaleService {
         return sale;
     }
 
-//    public Optional<Sale> findOneSale(Long id) {
-//        var ex = new SaleException(new SaleException());
-//        return saleRepository.findById(id);
-//    }
+    public Optional<Sale> findOneSale(Long id) {
+        var ex = new SaleException(new SaleException());
+        return saleRepository.findById(id);
+    }
 
     public SaleDto findById(Long id) {
         Optional<Sale> sale = saleRepository.findById(id);
@@ -79,11 +79,12 @@ public class SaleService {
             return saleDto;
     }
 
-//    public void saveSale(SaleDto saleDto) {
-//        Sale sale = dtoToSale(saleDto);
-//        sale.setProducts(productRepository.findById(saleDto.getIdProd()).orElseThrow());
-//        saleRepository.save(sale);
-//    }
+    public void saveSale(SaleDto saleDto) {
+        Sale sale = dtoToSale(saleDto);
+        sale.setProduct(productRepository.findById(saleDto.getIdProd()).orElseThrow());
+        sale.setClient(clientRepository.findById(saleDto.getIdClient()).orElseThrow());
+        saleRepository.save(sale);
+    }
 
     public void updateSale(Long id, SaleDto saleDto) {
         Sale sale = saleRepository.findById(id).orElseThrow();

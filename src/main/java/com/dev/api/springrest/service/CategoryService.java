@@ -3,7 +3,9 @@ package com.dev.api.springrest.service;
 import com.dev.api.springrest.dto.CategoryDto;
 import com.dev.api.springrest.exception.CategoryException;
 import com.dev.api.springrest.model.Category;
+import com.dev.api.springrest.model.Employee;
 import com.dev.api.springrest.repository.CategoryRepository;
+import com.dev.api.springrest.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +17,16 @@ public class CategoryService {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    EmployeeRepository employee;
+
     public CategoryDto categoryToDTO(Category category) {
         CategoryDto categoryDTO = new CategoryDto();
+        Employee employee = new Employee();
         categoryDTO.setId(category.getId());
         categoryDTO.setName(category.getName());
         categoryDTO.setDescription(category.getDescription());
+        categoryDTO.setEmployeeId(employee.getId());
         return categoryDTO;
     }
 
@@ -32,6 +39,7 @@ public class CategoryService {
 
     public void saveCategory(CategoryDto categoryDTO) {
         Category category = dtoToCategory(categoryDTO);
+        category.setEmployee(employee.findById(categoryDTO.getEmployeeId()).orElseThrow());
         categoryRepository.save(category);
     }
 
