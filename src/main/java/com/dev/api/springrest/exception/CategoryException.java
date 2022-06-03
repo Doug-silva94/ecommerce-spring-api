@@ -1,6 +1,8 @@
 package com.dev.api.springrest.exception;
 
-public class CategoryException extends Exception {
+import java.util.function.Supplier;
+
+public class CategoryException extends Exception implements Supplier<CategoryException> {
 
     private static final long serialVersionUID = 1L;
 
@@ -20,4 +22,9 @@ public class CategoryException extends Exception {
         super(e);
     }
 
+
+    @Override
+    public CategoryException get() {
+        return (CategoryException) getCause();
+    }
 }

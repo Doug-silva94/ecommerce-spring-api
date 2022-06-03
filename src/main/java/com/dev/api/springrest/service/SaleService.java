@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SaleService {
@@ -67,16 +68,9 @@ public class SaleService {
         return saleRepository.findById(id);
     }
 
-    public SaleDto findById(Long id) {
-        Optional<Sale> sale = saleRepository.findById(id);
-        Sale dataSale = new Sale();
-        SaleDto saleDto = new SaleDto();
-
-        if(sale.isPresent()) {
-            dataSale = sale.get();
-            saleToDto(dataSale);
-        }
-            return saleDto;
+    public SaleDto findOneById(Long id) throws SaleException {
+        var exc = new SaleException(new SaleException());
+        return saleToDto(this.getSaleOrElseThrow(id));
     }
 
     public void saveSale(SaleDto saleDto) {
@@ -103,7 +97,10 @@ public class SaleService {
     }
 
     public List<SaleDto> listAll() {
-        return (List<SaleDto>) saleRepository.findAll().spliterator();
-    }
+        return saleRepository.findAll()
+                .stream()
+                .map(sale -> saleToDto(sale))
+                .collect(Collectors.toList());
+     }
 
 }

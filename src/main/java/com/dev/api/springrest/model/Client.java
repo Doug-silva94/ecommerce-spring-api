@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.sql.Date;
 
 @Entity
@@ -21,21 +20,19 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", length = 50, nullable = false)
     private String name;
-    @Column(name = "username", nullable = false)
-    @Size(min = 5, max = 15)
+    @Column(name = "username", length = 10, nullable = false)
     private String userName;
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", length = 70, nullable = false)
     private String email;
-    @Column(name = "cpf", unique = true)
-    @Size(max = 14)
+    @Column(name = "cpf", length = 16, unique = true)
     private String cpf;
-    @Column(name = "birth")
+    @Column(name = "birth", length = 16)
     private Date birthDate;
-    @Column(name = "address", nullable = false)
+    @Column(name = "address", length = 100, nullable = false)
     private String address;
-    @Column(name = "tel", nullable = false)
+    @Column(name = "tel", length = 16, nullable = false)
     private String telephone;
 
     @OneToOne(mappedBy = "client")

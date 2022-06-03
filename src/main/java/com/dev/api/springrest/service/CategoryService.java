@@ -37,9 +37,9 @@ public class CategoryService {
         return category;
     }
 
-    public void saveCategory(CategoryDto categoryDTO) {
+    public void saveCategory(CategoryDto categoryDTO) throws CategoryException {
         Category category = dtoToCategory(categoryDTO);
-        category.setEmployee(employee.findById(categoryDTO.getEmployeeId()).orElseThrow());
+        category.setEmployee(employee.findById(categoryDTO.getEmployeeId()).get());
         categoryRepository.save(category);
     }
 

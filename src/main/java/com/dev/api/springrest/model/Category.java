@@ -20,9 +20,9 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "name", nullable = false)
+    @Column(name = "name",  length = 50,  nullable = false)
     private String name;
-    @Column(name = "description", nullable = false)
+    @Column(name = "description",  length = 100,  nullable = false)
     private String description;
 
     @OneToMany(mappedBy = "category")

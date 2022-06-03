@@ -44,7 +44,7 @@ public class EmployeeController {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-    @GetMapping()
+    @GetMapping("/")
     public ResponseEntity<List<EmployeeDto>> listAll() {
         return ResponseEntity.ok(employeeService.listAll());
     }

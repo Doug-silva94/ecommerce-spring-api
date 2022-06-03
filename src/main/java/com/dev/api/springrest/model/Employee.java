@@ -20,13 +20,12 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", length = 55, nullable = false)
     private String name;
-    @Column(name = "cpf", unique = true)
+    @Column(name = "cpf", length = 16, unique = true)
     private String cpf;
 
     @OneToMany(mappedBy = "employee")
     private Set<Category> categories;
-
 
 }

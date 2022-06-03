@@ -25,7 +25,7 @@ public class SaleController {
 
     @GetMapping("/{id}")
     public ResponseEntity<SaleDto> findById(@PathVariable long id) throws SaleException {
-        return ResponseEntity.ok(saleService.findById(id));
+        return ResponseEntity.ok(saleService.findOneById(id));
     }
 
     @DeleteMapping("/{id}")

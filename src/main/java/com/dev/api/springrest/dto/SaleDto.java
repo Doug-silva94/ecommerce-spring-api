@@ -16,12 +16,12 @@ public class SaleDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private long id;
+    private Long id;
     private Date date;
     private Double price;
     private Integer quantity;
-    private long idClient;
-    private long idProd;
+    private Long idClient;
+    private Long idProd;
     private String nfe;
     private String serviceType;
 }

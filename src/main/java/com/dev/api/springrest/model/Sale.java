@@ -20,15 +20,15 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
     private Date date;
-    @Column(name = "quantity")
+    @Column(name = "quantity", nullable = false)
     private int quantity;
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private double price;
-    @Column(name = "service_type")
+    @Column(name = "service_type", length = 20, nullable = false)
     private String serviceType;
-    @Column(name = "nfe")
+    @Column(name = "nfe", nullable = false)
     private String nfe;
 
     @OneToOne

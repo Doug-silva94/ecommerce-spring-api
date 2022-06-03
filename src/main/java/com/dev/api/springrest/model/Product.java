@@ -20,11 +20,11 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", length = 50, nullable = false)
     private String name;
     @Column(name = "price", nullable = false)
     private Double price;
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", length = 100, nullable = false)
     private String description;
     @Column(name = "date", nullable = false)
     private Date expirationDate;
