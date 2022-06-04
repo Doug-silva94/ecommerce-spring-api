@@ -21,50 +21,49 @@ public class ProductService {
     @Autowired
     CategoryRepository categoryRepository;
 
-    public ProductDto productToDTO(Product product) {
+    public ProductDto toDto(Product product) {
         Category category = new Category();
         ProductDto productDto = new ProductDto();
         productDto.setId(product.getId());
         productDto.setName(product.getName());
-        productDto.setUnitaryValue(product.getPrice());
+        productDto.setPrice(product.getPrice());
         productDto.setDescription(product.getDescription());
         productDto.setExpirationDate(product.getExpirationDate());
         productDto.setQuantity(product.getQuantity());
         productDto.setCatId(category.getId());
-
         return productDto;
     }
 
-    public Product dtoToProduct(ProductDto productDto) {
+    public Product toModel(ProductDto productDto) {
         Product product = new Product();
         product.setName(productDto.getName());
-        product.setPrice(productDto.getUnitaryValue());
+        product.setPrice(productDto.getPrice());
         product.setDescription(productDto.getDescription());
         product.setExpirationDate(productDto.getExpirationDate());
         product.setQuantity(productDto.getQuantity());
-
         return product;
     }
 
-    public void saveProduct(ProductDto productDto) throws Exception {
-        Product product = dtoToProduct(productDto);
+    public String saveProduct(ProductDto productDto) throws ProductException {
+        Product product = toModel(productDto);
         product.setCategory(categoryRepository.findById(productDto.getCatId()).orElseThrow());
         productRepository.save(product);
+        return "Product " + product.getId() + " successfully saved!";
     }
 
     public ProductDto findOneProduct(Long id) throws ProductException {
-        var ex = new ProductException(new ProductException());
-        return productToDTO(this.getProductOrElseThrow(id));
+    	return productRepository.findById(id)
+    			.map(product -> toDto(product))
+    			.orElseThrow(() -> new ProductException("Product " + id + " not found. Please, try again!"));
     }
 
-    public Product getProductOrElseThrow(Long id) throws ProductException {
-        return this.productRepository.findById(id).orElseThrow(ProductException::new);
-    }
-
-    public void updateProduct(Long id, ProductDto productDto) throws ProductException {
-        Product productOnBank = this.getProductOrElseThrow(id);
-        productOnBank.setQuantity(productDto.getQuantity());
-        productRepository.save(productOnBank);
+    public String updateProduct(Long id, ProductDto productDto) throws ProductException {
+    	Product dataProduct = this.productRepository.findById(id).orElseThrow(() -> 
+    	new ProductException("Category " + id + " was not updated. Please, try again."));
+    	
+    	dataProduct.setQuantity(productDto.getQuantity());
+        productRepository.save(dataProduct);
+        return "Sale " + id + " successfully updated!";
     }
 
     public void deleteProduct(long id) {
@@ -74,7 +73,7 @@ public class ProductService {
     public List<ProductDto> listAll() {
         return productRepository.findAll()
                 .stream()
-                .map(this::productToDTO)
+                .map(this::toDto)
                 .collect(Collectors.toList());
     }
 

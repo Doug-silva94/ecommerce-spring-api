@@ -22,7 +22,7 @@ public class MailController {
     	String product = "Produto e-mail";
     	Integer amounts = 5;
     	Double value = 2.0;
-    	mailSend.emailProduct(product, amounts, value);
+    	mailSend.emailSale(product, amounts, value);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     

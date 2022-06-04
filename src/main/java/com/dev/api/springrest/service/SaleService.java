@@ -1,8 +1,9 @@
 package com.dev.api.springrest.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,97 +21,84 @@ import com.dev.api.springrest.repository.SaleRepository;
 @Service
 public class SaleService {
 
-    @Autowired
-    SaleRepository saleRepository;
+	@Autowired
+	SaleRepository saleRepository;
 
-    @Autowired
-    ProductRepository productRepository;
+	@Autowired
+	ProductRepository productRepository;
 
-    @Autowired
-    ClientRepository clientRepository;
+	@Autowired
+	ClientRepository clientRepository;
 
-    public SaleDto saleToDto(Sale sale) {
-        SaleDto saleDto = new SaleDto();
-        Product product = new Product();
-        Client client = new Client();
+	@Autowired
+	EmailService emailService;
 
-        saleDto.setId(sale.getId());
-        saleDto.setDate(sale.getDate());
-        saleDto.setPrice(sale.getPrice());
-        saleDto.setQuantity(sale.getQuantity());
-        saleDto.setIdClient(client.getId());
-        saleDto.setIdProd(product.getId());
-        saleDto.setServiceType(sale.getServiceType());
-        saleDto.setNfe(sale.getNfe());
-        return saleDto;
-    }
+	public SaleDto toDto(Sale sale) {
+		SaleDto saleDto = new SaleDto();
+		Product product = new Product();
+		Client client = new Client();
 
+		saleDto.setId(sale.getId());
+		saleDto.setDate(sale.getDate());
+		saleDto.setPrice(sale.getPrice());
+		saleDto.setQuantity(sale.getQuantity());
+		saleDto.setIdClient(client.getId());
+		saleDto.setIdProd(product.getId());
+		saleDto.setServiceType(sale.getServiceType());
+		saleDto.setNfe(sale.getNfe());
+		return saleDto;
+	}
 
-    public Sale getSaleOrElseThrow(Long id) throws SaleException {
-        return this.saleRepository.findById(id).orElseThrow(SaleException::new);
-    }
+	public Sale toModel(SaleDto saleDto) {
+		Sale sale = new Sale();
+		sale.setDate(saleDto.getDate());
+		sale.setPrice(saleDto.getPrice());
+		sale.setQuantity(saleDto.getQuantity());
+		sale.setServiceType(saleDto.getServiceType());
+		sale.setNfe(saleDto.getNfe());
+		return sale;
+	}
 
-    private <T> T getValue(T savedData, String dtoInput) {
-        return dtoInput != null ? (T) dtoInput : savedData;
-    }
+	public String saveSale(SaleDto saleDto) throws MessagingException, SaleException {
+        Sale sale = toModel(saleDto);
+        Product product = productRepository.findById(saleDto.getIdProd()).get();
 
-    public Sale dtoToSale(SaleDto saleDto) {
-        Sale sale = new Sale();
-        sale.setId(saleDto.getId());
-        sale.setDate(saleDto.getDate());
-        sale.setPrice(saleDto.getPrice());
-        sale.setQuantity(saleDto.getQuantity());
-        sale.setServiceType(saleDto.getServiceType());
-        sale.setNfe(saleDto.getNfe());
-        return sale;
-    }
+		if (saleDto.getQuantity() <= product.getQuantity()) {
+			sale.setProduct(productRepository.findById(saleDto.getIdProd()).orElseThrow());
+			sale.setClient(clientRepository.findById(saleDto.getIdClient()).orElseThrow());
+			saleRepository.save(sale);
+			emailService.emailSale(product.getName(), saleDto.getQuantity(), product.getPrice());
+			return "Sale successfully saved!";
+		}
+		return "Product quantity not available";
+	}
 
-    public Optional<Sale> findOneSale(Long id) {
-        var ex = new SaleException(new SaleException());
-        return saleRepository.findById(id);
-    }
+	public SaleDto findOneSale(Long id) throws SaleException {
+		return saleRepository.findById(id).map(sale -> toDto(sale))
+				.orElseThrow(() -> new SaleException("Category " + id + " not found. Please, try again!"));
+	}
 
-    public SaleDto findOneById(Long id) throws SaleException {
-        var exc = new SaleException(new SaleException());
-        return saleToDto(this.getSaleOrElseThrow(id));
-    }
+	public String updateSale(Long id, SaleDto saleDto) throws SaleException {
+		Sale dataSale = this.saleRepository.findById(id)
+				.orElseThrow(() -> new SaleException("Category " + id + " was not updated. Please, try again."));
 
-    public void saveSale(SaleDto saleDto) {
-        Sale sale = dtoToSale(saleDto);
-        sale.setProduct(productRepository.findById(saleDto.getIdProd()).orElseThrow());
-        sale.setClient(clientRepository.findById(saleDto.getIdClient()).orElseThrow());
-        saleRepository.save(sale);
-    }
+		dataSale.setDate(saleDto.getDate());
+		dataSale.setPrice(saleDto.getPrice());
+		dataSale.setQuantity(saleDto.getQuantity());
+		saleRepository.save(dataSale);
+		return "Sale " + id + " successfully updated!";
+	}
 
-    public void updateSale(Long id, SaleDto saleDto) {
-        Sale sale = saleRepository.findById(id).orElseThrow();
-        if (saleDto.getPrice() != null) {
-            sale.setPrice(saleDto.getPrice());
-        }
-        if (saleDto.getQuantity() != null) {
-            sale.setQuantity(saleDto.getQuantity());
-        }
-        saleRepository.save(sale);
-    }
+	public void deleteSale(long id) {
+		saleRepository.deleteById(id);
+	}
 
+	public List<SaleDto> listAll() {
+		return saleRepository.findAll().stream().map(sale -> toDto(sale)).collect(Collectors.toList());
+	}
 
-    public void deleteSale(long id) {
-        saleRepository.deleteById(id);
-    }
-
-    public List<SaleDto> listAll() {
-        return saleRepository.findAll()
-                .stream()
-                .map(sale -> saleToDto(sale))
-                .collect(Collectors.toList());
-     }
-    
-    public List<ReportDto> topFive(){
-    	return saleRepository.topFive();
-  
-    	
-    	 
-    }
-    
+	public List<ReportDto> topFive() {
+		return saleRepository.topFive();
+	}
 
 }

@@ -38,5 +38,4 @@ public class Client {
     @OneToOne(mappedBy = "client")
     private Sale sale;
 
-
 }

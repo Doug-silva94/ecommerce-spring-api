@@ -33,7 +33,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody CategoryDto categoryDto) {
+    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody CategoryDto categoryDto) throws CategoryException {
         categoryService.updateCategory(id, categoryDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

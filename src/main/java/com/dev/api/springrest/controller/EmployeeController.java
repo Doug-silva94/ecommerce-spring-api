@@ -33,7 +33,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody EmployeeDto employeeDto) {
+    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody EmployeeDto employeeDto) throws EmployeeException {
         employeeService.updateEmployee(id, employeeDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

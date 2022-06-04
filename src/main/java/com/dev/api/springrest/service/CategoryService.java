@@ -1,67 +1,63 @@
 package com.dev.api.springrest.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.dev.api.springrest.dto.CategoryDto;
 import com.dev.api.springrest.exception.CategoryException;
 import com.dev.api.springrest.model.Category;
 import com.dev.api.springrest.model.Employee;
 import com.dev.api.springrest.repository.CategoryRepository;
 import com.dev.api.springrest.repository.EmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
-    @Autowired
+   
+	@Autowired
     CategoryRepository categoryRepository;
 
     @Autowired
     EmployeeRepository employee;
 
-    public CategoryDto categoryToDTO(Category category) {
-        CategoryDto categoryDTO = new CategoryDto();
+    public CategoryDto toDto(Category category) {
+        CategoryDto categoryDto = new CategoryDto();
         Employee employee = new Employee();
-        categoryDTO.setId(category.getId());
-        categoryDTO.setName(category.getName());
-        categoryDTO.setDescription(category.getDescription());
-        categoryDTO.setEmployeeId(employee.getId());
-        return categoryDTO;
+        categoryDto.setId(category.getId());
+        categoryDto.setName(category.getName());
+        categoryDto.setDescription(category.getDescription());
+        categoryDto.setEmployeeId(employee.getId());
+        return categoryDto;
     }
 
-    public Category dtoToCategory(CategoryDto categoryDTO) {
+    public Category toModel(CategoryDto categoryDTO) {
         Category category = new Category();
         category.setName(categoryDTO.getName());
         category.setDescription(categoryDTO.getDescription());
         return category;
     }
 
-    public void saveCategory(CategoryDto categoryDTO) throws CategoryException {
-        Category category = dtoToCategory(categoryDTO);
-        category.setEmployee(employee.findById(categoryDTO.getEmployeeId()).get());
+    public String saveCategory(CategoryDto categoryDto) {
+    	Category category = toModel(categoryDto);
+        category.setEmployee(employee.findById(categoryDto.getEmployeeId()).get());
         categoryRepository.save(category);
+        return "Category " + category.getId() + " successfully saved!";
     }
-
-    public Category getCategoryOrElseThrow(Long id) throws CategoryException {
-        return this.categoryRepository.findById(id).orElseThrow(CategoryException::new);
-    }
-
+    
     public CategoryDto findOneCategory(Long id) throws CategoryException {
-        var ex = new CategoryException(new CategoryException());
-        return categoryToDTO(this.getCategoryOrElseThrow(id));
-    }
+    	return categoryRepository.findById(id)
+    			.map(category -> toDto(category))
+    			.orElseThrow(() -> new CategoryException("Category " + id + " not found. Please, try again!"));
+    } 
 
-    public void updateCategory(Long id, CategoryDto categoryDTO) {
-        Category category = categoryRepository.findById(id).orElseThrow();
-        if (categoryDTO.getName() != null) {
-            category.setName(categoryDTO.getName());
-        }
-        if (categoryDTO.getDescription() != null) {
-            category.setDescription(categoryDTO.getDescription());
-        }
-        categoryRepository.save(category);
+    public String updateCategory(Long id, CategoryDto categoryDto) throws CategoryException {
+        Category dataCategory = this.categoryRepository.findById(id).orElseThrow(() -> 
+    	new CategoryException("Category " + id + " was not updated. Please, try again."));
+        		
+        dataCategory.setName(categoryDto.getName());
+        dataCategory.setDescription(categoryDto.getDescription());
+        categoryRepository.save(dataCategory);
+        return "Category " + id + " successfully updated!";
     }
 
     public void deleteCategory(long id) {
@@ -69,11 +65,7 @@ public class CategoryService {
     }
 
     public List<CategoryDto> listAll() {
-        return categoryRepository.listAll()
-        		.stream()
-        		.map(this::categoryToDTO)
-        		.collect(Collectors.toList());
+        return categoryRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
     }
-
 
 }

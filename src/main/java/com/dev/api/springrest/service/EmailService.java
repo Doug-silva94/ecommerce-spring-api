@@ -54,7 +54,7 @@ public class EmailService {
 //        mailSender.send(message);
 //    }
 
-    public void emailProduct(String product, Integer amounts, Double value) throws MessagingException {
+    public void emailSale(String product, Integer amounts, Double value) throws MessagingException {
         this.mailSender = javaMailSender();
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);

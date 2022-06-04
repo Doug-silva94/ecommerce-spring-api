@@ -27,14 +27,14 @@ public class SaleController {
     SaleService saleService;
 
     @PostMapping()
-    public ResponseEntity<Void> createProduct(@RequestBody SaleDto saleDto) throws Exception {
+    public ResponseEntity<Void> createSale(@RequestBody SaleDto saleDto) throws Exception {
         saleService.saveSale(saleDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<SaleDto> findById(@PathVariable long id) throws SaleException {
-        return ResponseEntity.ok(saleService.findOneById(id));
+        return ResponseEntity.ok(saleService.findOneSale(id));
     }
 
     @DeleteMapping("/{id}")
