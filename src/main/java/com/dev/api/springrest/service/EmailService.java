@@ -88,7 +88,7 @@ public class EmailService {
         }
     }
 
-    public void emailProductInventory(String product, Integer amounts) throws MessagingException {
+    public void emailProductInventory(String product, Integer amount) throws MessagingException {
         this.mailSender = javaMailSender();
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -106,7 +106,7 @@ public class EmailService {
 					+ "Produto com estoque baixo !!! <br/>" 
 					+ "====================================<br/>" 
 					+ "Produto: " + product  + "<br/>" 
-					+ "Quantidade: "  + amounts + "<br/>" 
+					+ "Quantidade: "  + amount + "<br/>" 
 					+ "====================================<br/>"
 					+ "Att,<br/>" 
 					+ "Gerencia Mucha Lucha Store<br/>" 

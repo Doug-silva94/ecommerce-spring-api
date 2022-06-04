@@ -1,16 +1,17 @@
 package com.dev.api.springrest.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.dev.api.springrest.dto.ProductDto;
 import com.dev.api.springrest.exception.ProductException;
 import com.dev.api.springrest.model.Category;
 import com.dev.api.springrest.model.Product;
 import com.dev.api.springrest.repository.CategoryRepository;
 import com.dev.api.springrest.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -20,6 +21,9 @@ public class ProductService {
 
     @Autowired
     CategoryRepository categoryRepository;
+    
+    @Autowired
+    EmailService emailService;
 
     public ProductDto toDto(Product product) {
         Category category = new Category();
@@ -78,6 +82,3 @@ public class ProductService {
     }
 
 }
-
-
-

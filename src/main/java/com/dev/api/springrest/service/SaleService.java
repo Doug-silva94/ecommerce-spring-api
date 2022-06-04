@@ -60,8 +60,8 @@ public class SaleService {
 	}
 
 	public String saveSale(SaleDto saleDto) throws MessagingException, SaleException {
-        Sale sale = toModel(saleDto);
-        Product product = productRepository.findById(saleDto.getIdProd()).get();
+		Sale sale = toModel(saleDto);
+		Product product = productRepository.findById(saleDto.getIdProd()).get();
 
 		if (saleDto.getQuantity() <= product.getQuantity()) {
 			sale.setProduct(productRepository.findById(saleDto.getIdProd()).orElseThrow());
@@ -70,7 +70,12 @@ public class SaleService {
 			emailService.emailSale(product.getName(), saleDto.getQuantity(), product.getPrice());
 			return "Sale successfully saved!";
 		}
-		return "Product quantity not available";
+
+		if (product.getQuantity() <= 5) {
+			emailService.emailProductInventory(product.getName(), product.getQuantity());
+			return "Email successfully sent!";
+		}
+		throw new SaleException();
 	}
 
 	public SaleDto findOneSale(Long id) throws SaleException {
