@@ -89,18 +89,16 @@ public class EmailService {
         try {
             helper.setFrom("group.two.serratec@gmail.com");
             helper.setTo(emailSender);
-            helper.setSubject("URGENT !!!");
+            helper.setSubject("LOW STOCK PRODUCT !");
 
             StringBuilder sb = new StringBuilder();
             sb.append("<html> \r\n" 
 					+ "<body>\r\n" 
 					+ "<br/>" 
-					+ "====================================<br/>"
-					+ "Low stock product !!! <br/>" 
-					+ "====================================<br/>" 
 					+ "Product: " + product + "<br/>" 
 					+ "Quantity: "  + amount + "<br/>" 
-					+ "====================================<br/>"
+					+ "<br/>"
+					+ "<br/>"
 					+ "Att,<br/>" 
 					+ "Inventory control<br/>" 
 					+ "<br/>"

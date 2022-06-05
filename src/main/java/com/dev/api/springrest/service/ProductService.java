@@ -54,7 +54,7 @@ public class ProductService {
 		Product product = toModel(productDto);
 		product.setCategory(categoryRepository.findById(productDto.getCatId()).orElseThrow());
 		productRepository.save(product);
-	
+
 		return "Product " + product.getId() + " successfully saved!";
 	}
 
@@ -68,8 +68,8 @@ public class ProductService {
 				.orElseThrow(() -> new ProductException("Category " + id + " was not updated. Please, try again."));
 
 		dataProduct.setQuantity(productDto.getQuantity());
-		
-		if (productDto.getQuantity() >= 5) {
+
+		if (productDto.getQuantity() <= 5) {
 			emailService.emailProductInventory(dataProduct.getName(), dataProduct.getQuantity());
 		}
 		productRepository.save(dataProduct);
