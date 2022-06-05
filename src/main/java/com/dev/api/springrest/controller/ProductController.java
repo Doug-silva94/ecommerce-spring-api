@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 @RestController
 @RequestMapping("product")
 public class ProductController {
@@ -29,7 +31,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody ProductDto productDto) throws ProductException {
+    public ResponseEntity<Void> updateById(@PathVariable long id, @RequestBody ProductDto productDto) throws ProductException, MessagingException {
         productService.updateProduct(id, productDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

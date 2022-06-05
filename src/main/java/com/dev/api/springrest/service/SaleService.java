@@ -33,6 +33,9 @@ public class SaleService {
 	@Autowired
 	EmailService emailService;
 
+	@Autowired
+	ProductService productService;
+
 	public SaleDto toDto(Sale sale) {
 		SaleDto saleDto = new SaleDto();
 		Product product = new Product();
@@ -59,21 +62,22 @@ public class SaleService {
 		return sale;
 	}
 
-	public String saveSale(SaleDto saleDto) throws MessagingException, SaleException {
+	public void saveSale(SaleDto saleDto) throws MessagingException, SaleException {
 		Sale sale = toModel(saleDto);
 		Product product = productRepository.findById(saleDto.getIdProd()).get();
+		Client client = clientRepository.findById(saleDto.getIdClient()).get();
 
 		if (saleDto.getQuantity() <= product.getQuantity()) {
+			product.setQuantity(product.getQuantity() - saleDto.getQuantity());
+
 			sale.setProduct(productRepository.findById(saleDto.getIdProd()).orElseThrow());
 			sale.setClient(clientRepository.findById(saleDto.getIdClient()).orElseThrow());
 			saleRepository.save(sale);
-			emailService.emailSale(product.getName(), saleDto.getQuantity(), product.getPrice());
-			return "Sale successfully saved!";
-		}
+			emailService.emailSale(product.getName(), saleDto.getQuantity(), product.getPrice(), client.getEmail());
 
-		if (product.getQuantity() <= 5) {
-			emailService.emailProductInventory(product.getName(), product.getQuantity());
-			return "Email successfully sent!";
+			if (product.getQuantity() <= 5) {
+				emailService.emailProductInventory(product.getName(), product.getQuantity());
+			}
 		}
 		throw new SaleException();
 	}

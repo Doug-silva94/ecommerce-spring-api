@@ -18,6 +18,7 @@ public class EmailService {
 
     @Autowired
     private JavaMailSender mailSender;
+    
     @Value("${spring.mail.username}")
     private String userName;
     @Value("${spring.mail.host}")
@@ -25,9 +26,10 @@ public class EmailService {
     @Value("${spring.mail.password}")
     private String password;
 
-    private final String emailSender [] = {"matheus.r.freitas@aluno.senai.br", 
+    private final String[] emailSender  = {"matheus.r.freitas@aluno.senai.br", 
     		"thaisquesada@live.com", "anacsocanto@gmail.com", "leo.chermaut@gmail.com", 
     		"douglas1.joker@gmail.com", "rodrigodepaula1989@gmail.com"};
+  
     
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl sendMail = new JavaMailSenderImpl();
@@ -45,23 +47,14 @@ public class EmailService {
         return sendMail;
     }
 
-//    public void sendMessage(String to, String subject, String text) {
-//        SimpleMailMessage message = new SimpleMailMessage();
-//        message.setFrom(emailSender);
-//        message.setTo(to);
-//        message.setSubject(subject);
-//        message.setText(text);
-//        mailSender.send(message);
-//    }
-
-    public void emailSale(String product, Integer amounts, Double value) throws MessagingException {
+    public void emailSale(String product, Integer amounts, Double value, String clientMail) throws MessagingException {
         this.mailSender = javaMailSender();
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
         try {
-            helper.setFrom("matheus.r.freitas@aluno.senai.br");
-            helper.setTo(emailSender);
+            helper.setFrom("group.two.serratec@gmail.com");
+            helper.setTo(clientMail);
             helper.setSubject("Mucha Lucha Store");
 
             StringBuilder sb = new StringBuilder();
@@ -69,11 +62,11 @@ public class EmailService {
 					+ "<body>\r\n" 
 					+ "<br/>" 
 					+ "*****************************<br/>"
-					+ "COMPRA REALIZADA COM SUCESSO! <br/>" 
+					+ "Purchase made successfully! <br/>" 
 					+ "*****************************<br/>"
-					+ "Produto: " + product  + "<br/>" 
-					+ "Quantidade: "  + amounts + "<br/>" 
-					+ "Valor: R$" + (amounts * value) +  "<br/>" 
+					+ "Product: " + product + "<br/>" 
+					+ "Quantity: "  + amounts + "<br/>" 
+					+ "Value: $" + (amounts * value) +  "<br/>" 
 					+ "______________________________<br/>"
 					+ "Att,<br/>" 
 					+ "Mucha Lucha store<br/>" 
@@ -84,7 +77,7 @@ public class EmailService {
             helper.setText(sb.toString(), true);
             mailSender.send(message);
         } catch (Exception e) {
-            System.out.println("Houve um erro! Entre em contato com o suporte! " +e.getMessage());
+            System.out.println("There was an error! Contact support! " +e.getMessage());
         }
     }
 
@@ -94,22 +87,22 @@ public class EmailService {
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
         try {
-            helper.setFrom("matheus.r.freitas@aluno.senai.br");
+            helper.setFrom("group.two.serratec@gmail.com");
             helper.setTo(emailSender);
-            helper.setSubject("URGENTE !!!");
+            helper.setSubject("URGENT !!!");
 
             StringBuilder sb = new StringBuilder();
             sb.append("<html> \r\n" 
 					+ "<body>\r\n" 
 					+ "<br/>" 
 					+ "====================================<br/>"
-					+ "Produto com estoque baixo !!! <br/>" 
+					+ "Low stock product !!! <br/>" 
 					+ "====================================<br/>" 
-					+ "Produto: " + product  + "<br/>" 
-					+ "Quantidade: "  + amount + "<br/>" 
+					+ "Product: " + product + "<br/>" 
+					+ "Quantity: "  + amount + "<br/>" 
 					+ "====================================<br/>"
 					+ "Att,<br/>" 
-					+ "Gerencia Mucha Lucha Store<br/>" 
+					+ "Inventory control<br/>" 
 					+ "<br/>"
 					+ "</div>\r\n" 
 					+ "</body>\r\n" 
@@ -117,7 +110,7 @@ public class EmailService {
             helper.setText(sb.toString(), true);
             mailSender.send(message);
         } catch (Exception e) {
-            System.out.println("Houve um erro! Entre em contato com o suporte! " +e.getMessage());
+            System.out.println("There was an error! Contact support! " +e.getMessage());
         }
     }
     
