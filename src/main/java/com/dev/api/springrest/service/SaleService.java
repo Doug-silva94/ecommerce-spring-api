@@ -69,7 +69,6 @@ public class SaleService {
 
 		if (saleDto.getQuantity() <= product.getQuantity()) {
 			product.setQuantity(product.getQuantity() - saleDto.getQuantity());
-
 			sale.setProduct(productRepository.findById(saleDto.getIdProd()).orElseThrow());
 			sale.setClient(clientRepository.findById(saleDto.getIdClient()).orElseThrow());
 			saleRepository.save(sale);

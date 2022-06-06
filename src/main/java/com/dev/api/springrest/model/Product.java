@@ -26,7 +26,9 @@ public class Product {
     private Double price;
     @Column(name = "description", length = 100, nullable = false)
     private String description;
-    @Column(name = "date", nullable = false)
+    @Column(name = "registrationDate", nullable = false)
+    private Date registrationDate;
+    @Column(name = "expirationDate", nullable = false)
     private Date expirationDate;
     @Column(name = "quantity", nullable = false)
     private int quantity;

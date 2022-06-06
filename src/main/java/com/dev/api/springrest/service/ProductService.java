@@ -34,6 +34,7 @@ public class ProductService {
 		productDto.setName(product.getName());
 		productDto.setPrice(product.getPrice());
 		productDto.setDescription(product.getDescription());
+		productDto.setRegistrationDate(product.getRegistrationDate());
 		productDto.setExpirationDate(product.getExpirationDate());
 		productDto.setQuantity(product.getQuantity());
 		productDto.setCatId(category.getId());
@@ -45,16 +46,16 @@ public class ProductService {
 		product.setName(productDto.getName());
 		product.setPrice(productDto.getPrice());
 		product.setDescription(productDto.getDescription());
+		product.setRegistrationDate(productDto.getRegistrationDate());
 		product.setExpirationDate(productDto.getExpirationDate());
 		product.setQuantity(productDto.getQuantity());
 		return product;
 	}
 
-	public String saveProduct(ProductDto productDto) throws ProductException {
+	public String saveProduct(ProductDto productDto) {
 		Product product = toModel(productDto);
 		product.setCategory(categoryRepository.findById(productDto.getCatId()).orElseThrow());
 		productRepository.save(product);
-
 		return "Product " + product.getId() + " successfully saved!";
 	}
 

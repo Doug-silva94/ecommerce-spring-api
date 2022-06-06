@@ -14,10 +14,10 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
 
 	@Query(value = "select sale.prod_id as idProduto, sum(sale.quantity) as quantidade, sum(sale.price) as valor \r\n"
 			+ "from sale \r\n"
-			+ "where sale.service_type = 'Venda'  \r\n"
+			+ "where sale.service_type = 'Sale'  \r\n"
 			+ "group by sale.prod_id \r\n"
 			+ "order by sum(sale.quantity)\r\n"
-			+ "desc limit 5", nativeQuery = true )
+			+ "desc limit 5", nativeQuery = true)
 	List<ReportDto> topFive();
 	
 	

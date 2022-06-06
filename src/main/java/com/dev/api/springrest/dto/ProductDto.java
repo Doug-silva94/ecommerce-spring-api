@@ -21,6 +21,7 @@ public class ProductDto implements Serializable {
     private Double price;
     private String description;
     private Long catId;
+    private Date registrationDate;
     private Date expirationDate;
     private int quantity;
 

@@ -89,7 +89,7 @@ public class EmailService {
         try {
             helper.setFrom("group.two.serratec@gmail.com");
             helper.setTo(emailSender);
-            helper.setSubject("LOW STOCK PRODUCT !");
+            helper.setSubject("LOW STOCK PRODUCT!");
 
             StringBuilder sb = new StringBuilder();
             sb.append("<html> \r\n" 
@@ -97,7 +97,6 @@ public class EmailService {
 					+ "<br/>" 
 					+ "Product: " + product + "<br/>" 
 					+ "Quantity: "  + amount + "<br/>" 
-					+ "<br/>"
 					+ "<br/>"
 					+ "Att,<br/>" 
 					+ "Inventory control<br/>" 
@@ -111,5 +110,5 @@ public class EmailService {
             System.out.println("There was an error! Contact support! " +e.getMessage());
         }
     }
-    
+        
 }
