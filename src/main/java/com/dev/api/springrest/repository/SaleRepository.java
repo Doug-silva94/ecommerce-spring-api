@@ -12,7 +12,7 @@ import com.dev.api.springrest.model.Sale;
 @Repository
 public interface SaleRepository extends JpaRepository<Sale, Long> {
 
-	@Query(value = "select sale.prod_id as idProduto, sum(sale.quantity) as quantidade, sum(sale.price) as valor \r\n"
+	@Query(value = "select sale.prod_id as productId, sum(sale.quantity) as quantity, sum(sale.price) as value \r\n"
 			+ "from sale \r\n"
 			+ "where sale.service_type = 'Sale'  \r\n"
 			+ "group by sale.prod_id \r\n"
